@@ -1,7 +1,7 @@
 This application is written in JavaScript to display the front end and Python to handle the backend.
 
-To run this application requires installing the packages required to run the Flask(Python)-app and React(JS)-app 
-and have terminals running for the Flask and React app indipendently. 
+To run this application requires installing the packages required to run the Flask(Py)-app and React(JS)-app 
+and have terminals running for the Flask and React app simultaniously. 
 
 ------------------------------------------- Install Flask Packages -------------------------------------------
 Depending on your python setup you may need to use -
