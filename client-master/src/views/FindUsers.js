@@ -1,12 +1,23 @@
+// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+//                                   -----------------------------------------
 import React, { useState, useEffect, useReducer } from "react"
 import axios from "axios";
 import { useHistory } from "react-router-dom"
 import SettingsAccessibility from "@mui/icons-material/SettingsAccessibility";
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+// ----------------------------------------------------------------------------------------------------------
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
 const FindUsers = () => {
+    //  history.push("/") is used to navigate to other routes
     const history = useHistory();
+    // STATE VARIABLE
     const [everyUser, setEveryUser] = useState([]);
+
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                                 GRAB EVERY USER FROM SQL
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     const grabEveryUser = () => {
         axios
           .get("/every/user")
@@ -19,6 +30,8 @@ const FindUsers = () => {
           })
           .catch((err) => console.log("err from FindUsers.js axios call", err));
       };
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //                              Grab keys put into array and grab each post 
@@ -28,7 +41,7 @@ const FindUsers = () => {
     let userArr = [];
     console.log("user dicts -- ", dict);
     for (let i=0; i < userKeys.length ; i++) {
-      console.log(dict[userKeys[i]], "-- is first name dict[i]*********************");
+      console.log(dict[userKeys[i]], " -- is first name dict[i]");
       userArr.push( dict[userKeys[i]] );
       console.log("userArr --  ", userArr);
     }
@@ -37,6 +50,10 @@ const FindUsers = () => {
   };
 // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                                 FUNCTION TO FOLLOW A USER
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+// NOT YET IMPLEMENTED
 let followUser = (id) => {
   id.preventDefault();
   axios.post("/follow",{
@@ -44,9 +61,12 @@ let followUser = (id) => {
   })
   console.log(id);
 }
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //                                          USEEFFECT-OOOO
+//                 useEffect IS USED TO AUTOMATICALLY RUN AXIOS CALLS TO API
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   useEffect(() => {
     grabEveryUser();

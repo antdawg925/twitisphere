@@ -1,3 +1,5 @@
+// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+//                                   -----------------------------------------
 import React, {useState, useEffect} from "react";
 import IconNav from "../components/IconNav";
 import NewsAPI from "../components/NewsAPI";
@@ -9,11 +11,16 @@ import EditProfile from "../components/EditProfile";
 import Settings from "../components/Settings";
 import Post from "../components/Post"
 import axios from "axios";
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+// ----------------------------------------------------------------------------------------------------------
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 
 const Profile = (props) => {
   // let arrow = "<-";
   
+  // STATE VARIABLES
   const [userId, setUserId] = useState(0)
   const [editProfile, setEditProfile] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -22,7 +29,9 @@ const Profile = (props) => {
   const [usersPosts, setUsersPosts] = useState([""]);
   const [userAndPosts, setUserAndPosts] = useState([[]]);
 
-
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                   GET ALL USERS POSTS
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const getUsersPosts = () => {
     axios.get("/users/posts")
       .then((res) => {
@@ -31,7 +40,12 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
+
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                 GET ALL USERS POSTS AND USERS INFO
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const getUserAndPosts = () => {
     axios.get("/user/and/posts")
       .then((res) => {
@@ -40,6 +54,12 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                   GET LOGGED IN USERS ID
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const getUserId = () => {
     axios.get("/get/user/id")
       .then((res) => {
@@ -55,8 +75,11 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** GET USER NAME AXIOS FAIL ****"))
   }
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                              Grab keys put into array and grab each post 
+//                             HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
+//                                       PROCESS ALL USERS POSTS 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 let pullPosts = (dict) => {
   let postKeys = Object.keys(dict)
@@ -77,7 +100,8 @@ let pullPosts = (dict) => {
 // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                              GRAB USER AND THEIR POSTS
+//                              HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
+//                                    PROCESS ALL USERS POSTS AND INFO
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 let pullUserAndPosts = (dict) => {
   let postKeys = Object.keys(dict)
@@ -98,8 +122,10 @@ let pullUserAndPosts = (dict) => {
   // console.log("++++++++", everyPost.map(post => post), "++++++++");
 };
 // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                              GRAB USER NAME
+//                                    GRAB USER NAME
+//                                  STILL HAVING TROUBLE
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 let pullUserName = (dict) => {
   let postKeys = Object.keys(dict)
@@ -112,7 +138,6 @@ let pullUserName = (dict) => {
   for ( let i=0; i < postObj.length; i++){
     postArr.push(postObj[i], "")
   }
-
   // console.log("****", postObj);
   console.log("++++** EVERY POST IN SQL **++++", postArr);
   setUserAndPosts(postArr)
@@ -120,6 +145,11 @@ let pullUserName = (dict) => {
   // console.log("++++++++", everyPost.map(post => post), "++++++++");
 };
 // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                                          USEEFFECT-OOOO
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
    // useEffect
    useEffect(() => {
@@ -133,6 +163,8 @@ let pullUserName = (dict) => {
    useEffect(() => {
     getUserId();
   }, [])
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
   // let imageUpload = (e) => {
   //   console.log(e.target.files);
