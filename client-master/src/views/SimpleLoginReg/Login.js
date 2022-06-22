@@ -1,14 +1,20 @@
+// \\\\\\<$A$>///////\\\\\\<$A$>///////  ___________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+//                                   -----------------------------------------
 import axios from "axios";
 import React, {useState} from "react";
 import {useHistory} from 'react-router-dom'
 
 const Login = () => {
-
+    //  history.push("/") is used to navigate to other routes
     const history = useHistory()
-
+    // STATE VARIABLES 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                         LETS USER LOGIN TO THEIR ACCOUNT
+// ______________________________________________________________________________________________________
     let loginUser = (e) => {
         e.preventDefault();
         // console.log("eee",e);
@@ -28,6 +34,8 @@ const Login = () => {
             // console.log("email or password is hopefullly just wrong Login.js ");
         })
     }
+//  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
     return (
         <div>

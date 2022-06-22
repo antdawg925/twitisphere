@@ -1,10 +1,13 @@
+// \\\\\\<$A$>///////\\\\\\<$A$>///////  ____________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+//                                   -----------------------------------------
 import axios from 'axios';
 import {useHistory} from 'react-router-dom'
 import React, { useState } from 'react'
 
 const Reg = () => {
-
+    //  history.push("/") is used to navigate to other routes
     const history = useHistory()
+    // STATE VARIABLES 
     const [first_name, setFirstName] = useState("");
     const [user_name, setUserName] = useState("");
     const [last_name, setLastName] = useState("");
@@ -12,8 +15,11 @@ const Reg = () => {
     const [password, setPassword] = useState("");
     const [confirm_password, setConfirmPassword] = useState("");
 
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//                           CREATE USER ON COMPLETION OF REG.JS FORM
+// ______________________________________________________________________________________________________
     const createUser = (e) => {
-        // if( confirm_password === password ) {
+        if( confirm_password === password ) {
             e.preventDefault();
             axios.post('/create/user', {
                 first_name,
@@ -27,16 +33,17 @@ const Reg = () => {
                 // store username into local storage
                 // localStorage.clear();
                 // localStorage.setItem("email", email);
-                // console.log(localStorage.getItem("email -- ","users email -- "), "***********************");
                 history.push('/home/feed')
             })
             .catch(err => {
-                console.log(err, "WTFFFFFFFFFF");
+                console.log(err, "Why you no want to RegIsSTer!! (Reg.js)");
             })
-        // } else {
-        //     console.log("Password and Confirm Password do not Match!!!");
-        // }
+        } else {
+            console.log("Password and Confirm Password do not Match!!!");
+        }
     }
+//  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
     return (
         <div>
