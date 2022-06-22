@@ -1,0 +1,80 @@
+#banner {
+  display: flex;
+  align-items: center;
+}
+.layout{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10%;
+  margin-top: 6%;
+}
+.the-div{
+  background-color:#7bc2f8;
+  height: 1000px;
+}
+.border {
+  border-style: solid;
+  padding: 0;
+  width: 40%;
+  height: 500px;
+  /* padding: 40px; */
+  text-align: center;
+  background-color: #034578;
+}
+.balanced {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5% 10%;
+  gap: 70px;
+  height: 700px;
+}
+.hover-el {
+  background-color: orange;
+  width: 80px;
+  height: 40px;
+  border-bottom-right-radius:20px;
+  border-right: 4px black double;
+  border-bottom: 4px black double;
+  margin: 0px;
+  padding-bottom: 5px;
+
+}
+.button-15 {
+  background-image: linear-gradient(#7bc2f8, #045292);
+  border: 1px solid #888888;
+  border-radius: 30px;
+  box-sizing: border-box;
+  color: #f8f8fa;
+  cursor: grab;
+  direction: ltr;
+  display: block;
+  font-family: SF Pro Text, SF Pro Icons, AOS Icons, Helvetica Neue,
+    Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: -0.022em;
+  line-height: 1.47059;
+  min-width: 70px;
+  overflow: visible;
+  text-align: center;
+  
+  user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  width: 60%;
+  height: 45px;
+  margin-left: 20%;
+}
+.button-15:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+.button-15:hover {
+  background-image: linear-gradient(#066cbf, #023963);
+  border-color: #041a2a;
+  text-decoration: none;
+}
+

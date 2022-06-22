@@ -1,0 +1,21 @@
+.main{
+    border: 4px #034578 solid;
+    border-Width: 4px;
+    height: 550px;
+    box-shadow: 20px 25px 10px #034578;
+    position: fixed;
+    top: 20%;
+    left: 30% !important;
+    background-color: white;
+}
+.headliner{
+    background: linear-gradient(#7bc2f8, skyBlue, rgb(19, 168, 243));
+    height: 40px;
+    margin: 0;
+    display: flex;
+    padding-Top: 10px;
+    padding-Left: 30px;
+
+}
+
+ 
