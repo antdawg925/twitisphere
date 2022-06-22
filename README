@@ -1,4 +1,4 @@
-This application is written in JavaScript to display the front end and Python to handle the backend.
+This application is written in JavaScript to display the front end and Python to handle the backend and MySQL to save the data.
 
 To run this application requires installing the packages required to run the Flask(Py)-app and React(JS)-app 
 and have terminals running for the Flask and React app simultaniously. 
