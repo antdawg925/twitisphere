@@ -4,18 +4,20 @@ To run this application requires installing the packages required to run the Fla
 and have terminals running for the Flask and React app simultaniously. 
 
 ------------------------------------------- Install Flask Packages -------------------------------------------
-Depending on your python setup you may need to use -
+Depending on your Python setup you may need to use -
+
 python -m pip
   or just 
 pip
 
-make sure to cd into "server" folder
-packages need to be installed to pipenv shell-
+Make sure to cd into "server" folder, parallel to flask_server folder.
+Packages need to be installed to pipenv shell.
+______________________________________________________________________
 1. python -m pip install flask 
 (to enter python shell and install packages to shell)
 2. python -m pipenv shell
-3. python -m pipenv bcrypt
-4. python -m pipenv pymysql
+3. python -m pip bcrypt
+4. python -m pip pymysql
 
 ------------------------------------------- Install React Packages -------------------------------------------
 First you must install node_modules which is not posted to github because .gitignore
