@@ -41,7 +41,10 @@ def create_user():
     return ("User has been saved")
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-# LET USER LOGIN _________________________________________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                       LET USER LOGIN 
+# ______________________________________________________________________________________________________
+# NOT IMPLEMENTED YET
 @app.route('/login' , methods = ['POST'])
 def login():
     user_data=request.get_json()
@@ -62,7 +65,10 @@ def login():
     # session['user_id'] = user.id
     return redirect('/dashboard')
 
-# LOG OUT AND REMOVE USER_ID FROM SESSION _______________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                              LOG OUT AND REMOVE USER_ID FROM SESSION
+# ______________________________________________________________________________________________________
+# NOT IMPLEMENTED YET
 @app.route('/logout')
 def logout():
     session.pop('user_id')
@@ -86,13 +92,14 @@ def get_every_user():
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #                                        GET LOGGED IN USER
 # ______________________________________________________________________________________________________
-@app.route('/get/user/id')
-def get_user_id():
-    user_id = User.get_user_id()
-    print("User id in controller",user_id)
-    print("HELLOOLOLOLLLOLOLO")
-    id_obj = user_id[0]
-    return id_obj
+# NOT WORKING YET
+# @app.route('/get/user/id')
+# def get_user_id():
+#     user_id = User.get_user_id()
+#     print("User id in controller",user_id)
+#     print("HELLOOLOLOLLLOLOLO")
+#     id_obj = user_id[0]
+#     return id_obj
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
