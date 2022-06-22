@@ -1,3 +1,5 @@
+# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+#                                   -----------------------------------------
 from flask_server.config.mysqlconnection import connectToMySQL
 from flask import flash, session
 import re
@@ -20,7 +22,9 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-# GET USER ID WITH USERNAME _________________________________________________________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                    GET USER ID WITH USERNAME
+# ______________________________________________________________________________________________________
     @classmethod
     def get_user_id(cls):
         print('getting individual user')
@@ -29,9 +33,12 @@ class User:
         print('***********+++++++***********', result)
         print("got user id")
         return result
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# SAVE USER_________________________________________________________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                         SAVE USER
+# ______________________________________________________________________________________________________
     @classmethod
     def save(cls, data):
         query = "INSERT INTO user ( first_name, last_name, user_name, email, password) " \
@@ -40,8 +47,12 @@ class User:
         print('***********************', result)
         print('saved the new user to database')
         return result
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-# GET EVERY USER ____________________________________________________________________________________
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                     GET EVERY USER
+# ______________________________________________________________________________________________________
     @classmethod
     def get_every_user(cls):
         print('retrieving every user (*Model -get_every_user*)')
@@ -53,9 +64,13 @@ class User:
         #     posts.append( cls(post) )
         #     print("list of the posts-",posts)
         return results
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# VALIDATE USER REG INFO______________________________________________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                  VALIDATE USER REG INFO
+# ______________________________________________________________________________________________________
+# NOT IMPLEMENTED YET
     @staticmethod
     def validate_info(user):
         is_valid = True
@@ -79,8 +94,13 @@ class User:
             is_valid = False
         print('valid entered info send to bcrypt')
         return is_valid
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-# VALIDATE LOGIN INFO________________________________________________________________________________________
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                    VALIDATE LOGIN INFO
+# ______________________________________________________________________________________________________
+# NOT IMPLEMENTED YET
     @staticmethod
     def validate_login( user ):
         print('validating login info')
@@ -96,3 +116,7 @@ class User:
             flash("Password must be at least 8 characters.")
             is_valid = False
         return is_valid
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
+

@@ -1,3 +1,5 @@
+# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+#                                   -----------------------------------------
 from flask_server.config.mysqlconnection import connectToMySQL
 from flask import flash, session
 from flask_server.models import User_Model
@@ -12,8 +14,12 @@ class Post:
         self.updated_at = data['updated_at']
      # need to save users id to be able to save the post to that user. 
         # self.user_id = data['user_id']
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-# SAVE POST _________________________________________________________________________________________________
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                         SAVE POST
+# ______________________________________________________________________________________________________
     @classmethod
     def save(cls, data):
         query = "INSERT INTO post ( post, user_id ) VALUES (%(post)s, %(user_id)s);"
@@ -21,8 +27,12 @@ class Post:
         print('*********************** schema post result --', result)
         print('saved the new user to database')
         return result
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-# ADD POINT TO POST _________________________________________________________________________________________________
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                        ADD POINT TO POST 
+# ______________________________________________________________________________________________________
     @classmethod
     def add_point(cls, data):
         query = "INSERT INTO twitisphere_schema.point (post_id, user_id) VALUES (%(post_id)s, %(user_id)s);"
@@ -30,8 +40,12 @@ class Post:
         # print('*********************** schema post result --', result)
         # print('saved the new user to database')
         return result
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-# GET EVERY POSTS ____________________________________________________________________________________
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                         GET EVERY POSTS
+# ______________________________________________________________________________________________________
     @classmethod
     def get_every_post(cls):
         # print('retrieving every post (*Model -get_every_post*);')
@@ -39,10 +53,12 @@ class Post:
         results = connectToMySQL(schema).query_db(query)
         # print("** RESULTS FOR EVERY POST QUERY **", results)
         return results
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# GET USERS POSTS 
-# ___________________________________________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                        GET USERS POSTS 
+# ______________________________________________________________________________________________________
     @classmethod
     def get_users_posts(cls):
         # print('retrieving users posts (*Model -get_users_posts*)')
@@ -51,9 +67,12 @@ class Post:
         results = connectToMySQL(schema).query_db(query)
         # print("** RESULTS FOR EVERY USERS POSTS QUERY **", results)
         return results
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# GET USER AND POST ____________________________________________________________________________________
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                        GET USER AND POST
+# ______________________________________________________________________________________________________
     @classmethod
     def get_user_and_posts(cls):
         # print('-----retrieving user and posts--------')
@@ -65,3 +84,6 @@ class Post:
             return[]
 
         return results
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
