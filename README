@@ -29,8 +29,8 @@ Need to install react-router-dom which allows front end routes to work
 3. npm i react-router-dom
 
 Tailwind was used to customize front end, may or may need to be installed. 
-2. npm install -D tailwindcss
-3. npx tailwindcss init
+4. npm install -D tailwindcss
+5. npx tailwindcss init
 
 These should be all the packages necessary to run this application! If anything is missing from the Python server 
 it should be indicated and sugested in the terminal. 
