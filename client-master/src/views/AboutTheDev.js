@@ -12,9 +12,9 @@ const AboutTheDevs = (props) => {
   // STATE VARIABLE
   const [ant, setAnt] = useState(false);
 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                           CONTROLS WHATS BEING RENDERED ON THE HOVER 
-// ______________________________________________________________________________________________________
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                           CONTROLS WHATS BEING RENDERED ON THE HOVER 
+  // ______________________________________________________________________________________________________
   const renderAnt = (e) => {
     if (e === null) {
       setAnt(false);
@@ -22,15 +22,15 @@ const AboutTheDevs = (props) => {
       setAnt(true);
     }
   };
-//  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  //  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
   return (
     <div className="the-div">
       <Link to="/" className="button-15">Go To Login</Link>
 
-    <div className="layout">
-      
+      <div className="layout">
+
         {ant ? (
           <div className="border"
             onMouseLeave={() => setAnt(false)}>
@@ -45,8 +45,8 @@ const AboutTheDevs = (props) => {
             <h1>All About Anthony</h1>
           </div>
         )}
-    
-    </div>
+
+      </div>
     </div>
 
   );
