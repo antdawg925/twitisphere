@@ -10,7 +10,7 @@ bcrypt = Bcrypt(app)
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 schema = "twitisphere_schema"
 
-class User:
+class Log_Reg:
     def __init__( self , data ):
         self.id = data['id']
         self.first_name = data['first_name']
@@ -25,64 +25,77 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        GET USER 
+#                                         SAVE USER
 # ______________________________________________________________________________________________________
     @classmethod
-    def get_user(cls):
-        query = "SELECT * FROM twitisphere_schema.user WHERE user.id=" + str(session['user_id']) + ";"  
-        results = connectToMySQL(schema).query_db(query)
-        if not results:
-            return[]
-        return results
+    def save(cls, data):
+        query = "INSERT INTO user ( first_name, last_name, user_name, email, password) " \
+        "VALUES (%(first_name)s , %(last_name)s , %(user_name)s, %(email)s , %(password)s );"
+        result = connectToMySQL(schema).query_db(query,data)
+        return result
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        FOLLOW A USER
-# ______________________________________________________________________________________________________
+#                                        GET USER BY EMAIL
+# ______________________________________________________________________________________________________    
     @classmethod
-    def follow(cls, data):
-        query = "INSERT INTO twitisphere_schema.follows (follower_user_id, following_id) " \
-        "VALUES (" + str(session["user_id"]) + ", %(following_id)s );"
+    def get_by_email(cls,data):
+        query = "SELECT * FROM user WHERE email = %(email)s;"
         result = connectToMySQL(schema).query_db(query,data)
         return result
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     GET EVERY USER
+#                                  VALIDATE USER REG INFO
 # ______________________________________________________________________________________________________
-    @classmethod
-    def get_every_user(cls):
-        query = "SELECT * FROM twitisphere_schema.user;" 
-        results = connectToMySQL(schema).query_db(query)
-        return results
+# NOT IMPLEMENTED YET
+    @staticmethod
+    def validate_info(user):
+        is_valid = True
+        if len(user['first_name']) < 3:
+            flash("First name must be at least 3 characters.")
+            is_valid = False
+        if len(user['last_name']) < 3:
+            flash("Last name must be at least 3 characters.")
+            is_valid = False
+        if not EMAIL_REGEX.match(user['email']): 
+            flash("Invalid email!")
+            is_valid = False
+        if len(user['password']) < 8:
+            flash("Password must be at least 8 characters.")
+            is_valid = False
+        if len(user['confirm']) < 3:
+            flash("Confirm password must be at least 3 characters.")
+            is_valid = False
+        if user['confirm'] != user['password']:
+            flash("Password and confirm password do not match.")
+            is_valid = False
+        print('valid entered info send to bcrypt')
+        return is_valid
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     GET FOLLOWING
+#                                    VALIDATE LOGIN INFO
 # ______________________________________________________________________________________________________
-    @classmethod
-    def get_following(cls):
-        query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on following_id=user.id " \
-            " WHERE follower_user_id="+ str(session['user_id']) + ";" 
-        results = connectToMySQL(schema).query_db(query)
-        return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+    @staticmethod
+    def validate_login( user ):
+        print('validating login info')
+        is_valid = True
+        # if len(user['email']) < 3:
+        #     flash("Email must be at least 3 characters.")
+        #     is_valid = False
+        if not EMAIL_REGEX.match(user['email']): 
+            flash("Invalid email/password!")
+            is_valid = False
+            print('XXXXXXXXXXXX passes regex step XXXXXXXXXX')
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     GET FOLLOWER
-# ______________________________________________________________________________________________________
-    @classmethod
-    def get_followers(cls):
-        query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on following_id=user.id " \
-            " WHERE following_id="+ str(session['user_id']) + ";" 
-        results = connectToMySQL(schema).query_db(query)
-        return results
+        # if len(user['password']) < 8:
+        #     flash("Password must be at least 8 characters.")
+        #     is_valid = False
+        return is_valid
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
