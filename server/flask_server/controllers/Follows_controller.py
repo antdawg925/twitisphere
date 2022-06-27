@@ -38,9 +38,9 @@ def follow():
     for value in followers:
         print(value["follower_user_id"])
         if(value["follower_user_id"] == session["user_id"]):
-            print("I think he already follows them!")
+            print("I think he already follow them!")
             error={
-                "error":"You already follows them!"
+                "error":"You already follow them!"
             }
             return error
     data = {

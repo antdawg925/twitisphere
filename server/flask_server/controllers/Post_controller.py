@@ -23,11 +23,11 @@ def create_post():
 
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                         GET EVERY POST
+#                                         GET FOLLOWING  POST
 # ______________________________________________________________________________________________________
-@app.route("/every/post")
+@app.route("/following/posts")
 def get_every_post():
-    every_post = Post.get_every_post()
+    every_post = Post.get_following_posts()
     catch = {}
     for post in every_post:
         catch.update({post["id"]: post})
@@ -40,11 +40,10 @@ def get_every_post():
 # ______________________________________________________________________________________________________
 @app.route("/users/posts")
 def get_users_posts():
-    user_id = session['user_id']
     user_posts = Post.get_users_posts( )
     catch = {}
     for post in user_posts:
         catch.update({post["id"]: post})
     return catch
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
+ 

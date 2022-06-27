@@ -15,7 +15,7 @@ class Post:
 
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
+ 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #                                         SAVE POST
 # ______________________________________________________________________________________________________
@@ -31,8 +31,8 @@ class Post:
 #                                         GET EVERY POSTS
 # ______________________________________________________________________________________________________
     @classmethod
-    def get_every_post(cls):
-        query = "SELECT * FROM twitisphere_schema.post LEFT JOIN point ON point.user_id LEFT JOIN user ON post.user_id = user.id;" 
+    def get_following_posts(cls):
+        query = "SELECT * FROM twitisphere_schema.post LEFT JOIN follows ON following_id=user_id  LEFT JOIN user ON  following_id = user.id where follower_user_id= " + str(session['user_id']) + ";"
         results = connectToMySQL(schema).query_db(query)
         return results
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
