@@ -27,7 +27,7 @@ const Feed = (props) => {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const grabEveryPost = () => {
     axios
-      .get("/every/post")
+      .get("/following/posts")
       .then((res) => {
         pullPost(res.data);
         setError("")
@@ -78,6 +78,7 @@ const Feed = (props) => {
   //                   Grab keys put into array and grab each post 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   let pullPost = (dict) => {
+    console.log(dict);
     let postKeys = Object.keys(dict)
     let postArr = [];
     for (let i = 0; i < postKeys.length; i++) {

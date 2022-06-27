@@ -65,7 +65,7 @@ const FindUsers = () =>
       id
     })
       .then(res => {
-        if(res.data["error"] === "You already follows them!"){
+        if(res.data["error"] === "You already follow them!"){
           // console.log("I caught the error message! -- ",res.data["error"])
           setError(res.data["error"])
           return error
