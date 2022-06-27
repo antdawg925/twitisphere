@@ -6,8 +6,6 @@ from flask_server import app
 from flask_bcrypt import Bcrypt
 import re
 
-bcrypt = Bcrypt(app)
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 schema = "twitisphere_schema"
 
 class User:
@@ -40,18 +38,6 @@ class User:
 
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        FOLLOW A USER
-# ______________________________________________________________________________________________________
-    @classmethod
-    def follow(cls, data):
-        query = "INSERT INTO twitisphere_schema.follows (follower_user_id, following_id) " \
-        "VALUES (" + str(session["user_id"]) + ", %(following_id)s );"
-        result = connectToMySQL(schema).query_db(query,data)
-        return result
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #                                     GET EVERY USER
 # ______________________________________________________________________________________________________
     @classmethod
@@ -60,31 +46,4 @@ class User:
         results = connectToMySQL(schema).query_db(query)
         return results
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     GET FOLLOWING
-# ______________________________________________________________________________________________________
-    @classmethod
-    def get_following(cls):
-        query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on following_id=user.id " \
-            " WHERE follower_user_id="+ str(session['user_id']) + ";" 
-        results = connectToMySQL(schema).query_db(query)
-        return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     GET FOLLOWER
-# ______________________________________________________________________________________________________
-    @classmethod
-    def get_followers(cls):
-        query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on following_id=user.id " \
-            " WHERE following_id="+ str(session['user_id']) + ";" 
-        results = connectToMySQL(schema).query_db(query)
-        return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-
 

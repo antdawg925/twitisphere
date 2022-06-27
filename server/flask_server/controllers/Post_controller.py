@@ -48,17 +48,3 @@ def get_users_posts():
     return catch
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                       ADD POINT TO A POST
-# ______________________________________________________________________________________________________
-@app.route("/add/point", methods=["POST"])
-def add_point():
-    post_id = request.get_json()
-    data={
-        "user_id":session['user_id'],
-        "post_id": post_id["id"]
-    }
-    Post.add_point(data)
-    return ('point has bene added to post')
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ

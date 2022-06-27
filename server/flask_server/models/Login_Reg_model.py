@@ -1,7 +1,6 @@
 # \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
 #                                   -----------------------------------------
 from flask_server.config.mysqlconnection import connectToMySQL
-from flask import flash, session
 from flask_server import app
 from flask_bcrypt import Bcrypt
 import re
@@ -23,7 +22,7 @@ class Log_Reg:
         self.image = data['image']
         self.bd = data['bd']
         self.created_at = data['created_at']
-        self.updated_at = data['updated_at']
+        self.updated_at = data['updated_at'] 
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #                                         SAVE USER
@@ -35,6 +34,31 @@ class Log_Reg:
         result = connectToMySQL(schema).query_db(query,data)
         return result
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                    CHECK IF EMAIL IS USED
+# ______________________________________________________________________________________________________
+    @classmethod
+    def check_email(cls,data):
+        query = "SELECT email FROM user WHERE email=%(email)s;" 
+        results = connectToMySQL(schema).query_db(query,data)
+        print("%%%% check if email exists -- ", results)
+        return results
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+ 
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#                                    CHECK IF USERNAME IS USED
+# ______________________________________________________________________________________________________
+    @classmethod
+    def check_user_name(cls,data):
+        query = "SELECT user_name FROM user WHERE user_name=%(user_name)s;" 
+        results = connectToMySQL(schema).query_db(query,data)
+        print("%%%% check if userName exists -- ", results)
+        return results
+# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #                                        GET USER BY EMAIL
