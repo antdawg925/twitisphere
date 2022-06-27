@@ -1,6 +1,7 @@
 // \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
 //                                   -----------------------------------------
 import React, { useState, useEffect } from "react";
+import Follows from "../components/follows/Follows"
 import IconNav from "../components/IconNav";
 import NewsAPI from "../components/NewsAPI";
 import PersonIcon from "@mui/icons-material/Person";
@@ -19,10 +20,15 @@ const Profile = (props) => {
   const [userInfo, setUserInfo] = useState({})
   const [editProfile, setEditProfile] = useState(false);
   const [settings, setSettings] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState({});
   const [followers, setFollowers] = useState({});
   const [following, setFollowing] = useState({});
   const [usersPosts, setUsersPosts] = useState([""]);
+
+  // State variables for follows component
+  const [followsComp, setFollowsComp] = useState(false)
+  const [followersComp, setFollowersComp] = useState(false)
+  const [followingComp, setFollowingComp] = useState(false)
 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //                               GET ALL USERS POSTS
@@ -118,7 +124,9 @@ const Profile = (props) => {
           <div id="bottomOfPicture">
             <PersonIcon sx={{ fontSize: 100 }} id="userPic" />
             <p
-              onClick={() => setEditProfile(true)}>
+              onClick={() => {
+                setSettings(true)
+              }}>
               <SettingsSuggestIcon sx={{ fontSize: 100 }} />
             </p>
           </div>
@@ -127,8 +135,17 @@ const Profile = (props) => {
             <h2>{userInfo.first_name} {userInfo.last_name}</h2>
             <p>@{userInfo.user_name}</p>
             <div className="flex">
-              <p className="mr-2">{following.length} :Following </p>
-              <p> {followers.length}:Followers</p>
+              <p className="mr-2"
+              onClick={() => {
+                setFollowsComp(true)
+                setFollowingComp(true)
+                setFollowersComp(false)
+              }}>{following.length} :Following </p>
+              <p onClick={() => {
+                setFollowsComp(true)
+                setFollowersComp(true)
+                setFollowingComp(false)
+              }}> {followers.length} :Followers</p>
             </div>
             <h1>Posts: {usersPosts.length}</h1>
             <hr />
@@ -156,13 +173,28 @@ const Profile = (props) => {
 
         {
           editProfile ? (
-            <EditProfile setImage={setImage} image={image} setEditProfile={setEditProfile} setSettings={setSettings} />
+            <EditProfile setImage={setImage} 
+            image={image} 
+            setEditProfile={setEditProfile} 
+            setSettings={setSettings} />
           ) : ""
         }
         {
           settings ? (
             <Settings setSettings={setSettings} />
           ) : ""
+        }
+        {
+          followsComp ? (
+            <Follows 
+              followsComp={followsComp}
+              setFollowsComp={setFollowsComp}
+              followersComp={followersComp}
+              setFollowersComp={setFollowersComp}
+              followingComp={followingComp}
+              setFollowingComp={setFollowingComp}
+              />
+          ): ""
         }
       </div>
       {/* NEWS SIDE OF CONTENT */}

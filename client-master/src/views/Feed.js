@@ -19,6 +19,7 @@ const Feed = (props) => {
   const history = useHistory();
   // STATE VARIABLE
   const [everyPost, setEveryPost] = useState([]);
+  const [error, setError] = useState("");
   // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -29,6 +30,7 @@ const Feed = (props) => {
       .get("/every/post")
       .then((res) => {
         pullPost(res.data);
+        setError("")
       })
       .catch((err) => console.log("err from Feed.js axios call", err));
   };
@@ -39,12 +41,16 @@ const Feed = (props) => {
   //                                     ADD POINT TO POST 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const addPoint = (id) => {
-    console.log("This is the id being sent into axios for add point", id);
     axios.post("/add/point", {
       id
     })
       .then(res => {
+        if (res.data["error"] === "You already liked this post!") {
+          setError(res.data["error"])
+          return "error"
+        }
         console.log("add point to post axios post", res)
+        setError("")
       })
       .catch(err => {
         console.log("err from add point axios post", err);
@@ -52,7 +58,22 @@ const Feed = (props) => {
   }
   // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
+  let grabPoints = (id) => {
+    axios.post("/count/points", {
+      id
+    })
+      .then(res => {
+        console.log("resesdsesssesessee", res.data['points'])
+        let points = 0
+        points = res.data["points"]
+        console.log(points);
+        return 
+      })
+      .catch(err => console.log(err))
+    console.log("COUNT THEM POINTS BOOIIII! -- ");
+    return 
+  }
+  
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //                   Grab keys put into array and grab each post 
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -76,7 +97,7 @@ const Feed = (props) => {
   // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
   return (
-    <div id="mainBodyHomePage">
+    <div id="mainBodyHomePage" >
       {/* LEFT SIDE */}
       <IconNav
         setPostForm={props.setPostForm}
@@ -84,15 +105,22 @@ const Feed = (props) => {
         renderPost={props.renderPost}
       />
       {/* Middle */}
-      <div id="allContent">
-        <p className="flex w-full">
-          <PersonIcon className="mt-6"
-            sx={{ fontSize: 100 }}
-            onClick={() => history.push("/profile")}
-          />
-          <h2 className="text-6xl text-blue-800 font-bold 
-            underline mt-10 ml-60"> Home </h2>
-        </p>
+      <div className="w-2/3">
+        <div className="align-center border-4 bg-blue-300  w-full shadow-lg shadow-blue-300"
+          style={{ marginLeft: "2%", width: "54.5vw" }}>
+          <p className="hover:underline-offset-4">
+            <PersonIcon className="mt-6 hover:border-b-4 hover:cursor-none"
+              sx={{ fontSize: 100 }}
+              onClick={() => history.push("/profile")}
+            />
+          </p>
+          <h2 className="text-6xl text-blue-900 
+              font-bold underline  ml-60">
+            Home
+          </h2>
+
+        </div>
+        {error}
         <div style={{ margin: "2%" }}>
           {
             everyPost ? (
@@ -108,7 +136,7 @@ const Feed = (props) => {
                       <p> {post.post} </p>
                     </div>
                     <div>
-                      <>- { } -</>
+                      {/* <> {(grabPoints(post.id))} </> */}
                       <p className=" " onClick={() => (addPoint(post.id))}> <DoneAll /> </p>
                     </div>
                   </div>

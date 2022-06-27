@@ -21,7 +21,7 @@ const Post = (props) => {
         console.log(res, "axios posted for /post/post");
         setPost(post)
         console.log("The post -- ", post);
-        props.setEveryPost([...props.everyPost, post])
+        // props.setEveryPost([...props.everyPost, post])
         props.setPostForm(false)
       })
       .catch(err => {

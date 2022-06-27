@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../CSS/HomePage.css";
 import { useHistory } from 'react-router-dom'
-
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 // ----------------------------------------------------------------------------------------------------------
 // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
@@ -19,11 +17,12 @@ const NewsAPI = () => {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //                               RETRIEVING NY TIMES NEWS FROM API
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  
   const axiosNews = () => {
     const newsCatcher = [];
     axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=new+york+times&page=2&sort=oldest&api-key=Uh8kclNaPnGtLJAhGbU5hTStY36qZz8z")
       .then((res) => {
-        if (localStorage.getItem("logged_in") != "yes") {
+        if (localStorage.getItem("logged_in") !== "yes") {
           history.push('/')
         }
         for (let i = 0, count = 0; count < 8; i++) {
@@ -45,10 +44,11 @@ const NewsAPI = () => {
 
   return (
     <div id="news">
+      <h1 className="text-center text-3xl underline hover:underline-offset-4 font-bold h-20 mb-2 pt-5 ">Live NY Times API</h1>
       {
         news.map((headline, idx) => {
           return (
-            <div className="news-box min-h-fit lg:h-1/8 pb-6 shadow-xl shadow-blue-300 bg-slate-200" key={idx}>
+            <div className="news-box min-h-fit lg:h-1/8 pb-6 shadow-xl shadow-blue-300 bg-slate-100" key={idx}>
 
               <h2 className="news-title text-l font-bold shadow-lg text-slate-200 shadow-blue-300"> {news[idx].headline.print_headline} </h2>
               <h5 className="news-feed text-base md:text-xs  p-5 md:pb-0 shadow-xl bg-blue-200 shadow-blue-300"> {news[idx].headline.main} </h5>
