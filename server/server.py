@@ -9,4 +9,4 @@ from flask_server.controllers import Follows_controller
 from flask_server import app
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
