@@ -1,9 +1,8 @@
 ### This application is written in JavaScript to display the front end and Python to handle the backend and MySQL to save the data.
 
-### To run this application requires installing the packages required to run the Flask(Py)-app and React(JS)-app 
-and have terminals running for the Flask and React app simultaniously. 
+### To run this application requires installing the packages required to run the Flask(Py)-app and React(JS)-app and have terminals running for the Flask and React app simultaniously. 
 
-## ------------------------------------------- Install Flask Packages -------------------------------------------
+## --------------------------------------- Install Flask Packages ----------------------------------------
 ### Depending on your Python setup you may need to use -
 
 ### `python -m pip`
@@ -22,7 +21,7 @@ RUN FLASK SERVER
 ----------------
 ### `python server.py`
 
-## ------------------------------------------- Install React Packages -------------------------------------------
+## -------------------------------------- Install React Packages ---------------------------------------
 ## First you must install node_modules which is not posted to github because .gitignore
 ## To install node_modules cd into "client-master" folder
 ### `npm i`
@@ -40,8 +39,7 @@ Need to install react-router-dom which allows front end routes to work
 ----------------
 `npm start`
 
-### These should be all the packages necessary to run this application! If anything is missing from the Python server 
-### it should be indicated and sugested in the terminal. 
+### These should be all the packages necessary to run this application! If anything is missing from the Python server it should be indicated and sugested in the terminal. 
 
 Thanks for stopping by!! :)
  
