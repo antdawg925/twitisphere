@@ -13,8 +13,8 @@ and have terminals running for the Flask and React app simultaniously.
 Make sure to cd into "server" folder, parallel to flask_server folder.
 Packages need to be installed to pipenv shell.
 ______________________________________________________________________
-1. ### `python -m pip install flask `
-(to enter python shell and install packages to shell)
+1. ### `python -m pip install flask ` \
+(to enter python shell and install packages to shell) \
 2. ### `python -m pipenv shell` \
 3. ### `python -m pip flask_bcrypt` \
 4. ### `python -m pip pymysql` \
