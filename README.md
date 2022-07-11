@@ -30,7 +30,7 @@ RUN FLASK SERVER
 ### Must install axios to make requests to Python server
 2. `npm i axios`
 Need to install react-router-dom which allows front end routes to work
-3. `npm i react-router-dom`\
+3. `npm i react-router-dom`
 
 ## Tailwind was used to customize front end, may or may need to be installed. 
 4. `npm i -D tailwindcss`
