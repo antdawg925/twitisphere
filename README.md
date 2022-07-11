@@ -15,9 +15,9 @@ Packages need to be installed to pipenv shell.
 ______________________________________________________________________
 1. ### `python -m pip install flask ` \
 (to enter python shell and install packages to shell) \
-2. ### `python -m pipenv shell` \
-3. ### `python -m pip flask_bcrypt` \
-4. ### `python -m pip pymysql` \
+2. `python -m pipenv shell` \
+3. `python -m pip flask_bcrypt` \
+4. `python -m pip pymysql` \
 RUN FLASK SERVER
 ----------------
 ### `python server.py`
