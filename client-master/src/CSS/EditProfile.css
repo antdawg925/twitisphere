@@ -1,39 +1,41 @@
 .center1{
   border: 4px #034578 solid;
   margin-left: 23%;
-  margin-top: 10px;
-  height: fit-content !important;
+  min-height: 70% !important;
   max-width: 500px;
   min-width: 30%;
   position: absolute;
   border-radius: 7px;
-  top: 10%;
+  top: 5%;
   left: 5%;
   background-color: aliceblue;
   box-shadow: 20px 25px 10px #034578;
   
 
 }
+
 .center{
   border: 4px #034578 solid;
   margin-left: 23%;
   margin-top: 10px;
-  height: 60%;
+  min-height: 70% !important;
   max-width: 500px;
   min-width: 30%;
   position: absolute;
   border-radius: 7px;
-  top: 10%;
-  left: 7%;
+  top: 4%;
+  left: 5%;
   background-color: aliceblue;
   box-shadow: 20px 25px 10px #034578;
 
 }
+
 .title{
   background: linear-gradient(  #002745, #034578,#7bc2f8, #002745);
   padding: 7px;
   padding-left: 15px;
 }
+
 .align-center{
   display: flex;
   align-items: center;
@@ -42,22 +44,14 @@
   margin-left: 20%;
   
 }
+
 .edit-btn{
   background-color: #034578;
   border-radius: 4px;
   border: 4px lightblue double;
   padding: 4px;
-  margin: 10px;
-  margin-Left:10%;
   color:white;
   font-size: 20px
-
-}
-.btm{
-  display: flex;
-  align-items: center;
-  justify-content: bottom;
-  margin-bottom: 10%;
 }
 
 .input {
@@ -70,7 +64,6 @@
   margin-bottom: 2%;
 }
 
-
 .pic {
   display: flex;
   margin: 5%;
@@ -80,11 +73,13 @@
   width: 16%;
   height: 12%;
 }
+
 .m-btm {
   margin-right: 20%;
   margin-top: 45%;
   margin-bottom: 15%;
 }
+
 .cancel{
   background-color: rgb(251, 66, 66);
   width: 100%;
@@ -93,7 +88,6 @@
   bottom: 0px;
   border-top: 6px #034578 solid;
   font-size: 25px;
-  
 }
 
 

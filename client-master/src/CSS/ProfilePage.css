@@ -1,12 +1,4 @@
-#profilePage {
-  display: flex;
-}
-#profilePageUser {
-  flex: 6.5;
-}
-.flex {
-  display: flex;
-}
+
 #profilePageHeader {
   display: flex;
 }

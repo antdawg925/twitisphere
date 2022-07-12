@@ -9,144 +9,150 @@ import IconNav from "../components/IconNav";
 import Post from "../components/Post";
 import NewsAPI from "../components/NewsAPI";
 import DoneAll from "@mui/icons-material/DoneAll";
-
-
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-// -------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------
 // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
 const Feed = (props) => {
 
-//  history.push("/") is used to navigate to other routes
+  //  history.push("/") is used to navigate to other routes
   const history = useHistory();
-
+  // STATE VARIABLE
   const [everyPost, setEveryPost] = useState([]);
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  const [error, setError] = useState("");
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                                  AXIOS GET FOR EVERY POST
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- 
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                                   AXIOS GET FOR EVERY POST
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const grabEveryPost = () => {
     axios
-      .get("/every/post")
+      .get("/following/posts")
       .then((res) => {
-        // console.log("** RES FOR EVERY POST **", res);
-        // console.log("** OBJECT KEYS **", Object.keys(res.data));
-        // setEveryPost(res);
         pullPost(res.data);
+        setError("")
       })
       .catch((err) => console.log("err from Feed.js axios call", err));
   };
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-const addPoint = (id) => {
-  console.log("This is the id being sent into axios for add point",id);
-  axios.post("/add/point", {
-    id
-  })
-    .then(res => {
-      console.log("add point to post axios post",res)
+
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                                     ADD POINT TO POST 
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  const addPoint = (id) => {
+    axios.post("/add/point", {
+      id
     })
-    .catch(err =>{
-      console.log("err from add point axios post",err);
-    } )
-}
+      .then(res => {
+        if (res.data["error"] === "You already liked this post!") {
+          setError(res.data["error"])
+          return "error"
+        }
+        console.log("add point to post axios post", res)
+        setError("")
+      })
+      .catch(err => {
+        console.log("err from add point axios post", err);
+      })
+  }
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                   Grab keys put into array and grab each post 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                   GRAB THAT POST AND COUNT EVERY POINT IT HAS
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  let grabPoints = (id) => {
+    let returnPoints=0
+    axios.post("/count/points", {
+      id
+    })
+      .then(res => {
+        console.log("This post at id:",id, "has -", res.data['points'],"points")
+        returnPoints = res.data["points"]
+        console.log("reuturn points - ",returnPoints);
+      })
+      .catch(err => console.log(err))
+    console.log("COUNT THEM POINTS BOOIIII! -- ");
+    return returnPoints
+
+  }
+
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                   Grab keys put into array and grab each post 
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   let pullPost = (dict) => {
+    console.log(dict);
     let postKeys = Object.keys(dict)
-    // let postObj = {};
     let postArr = [];
-    for (let i=0; i < postKeys.length ; i++) {
-      // console.log(dict[postKeys[i]].post, "-- is dict[i]");
+    for (let i = 0; i < postKeys.length; i++) {
       postArr.push(dict[postKeys[i]])
-      // postObj.push(dict[postKeys[i]].post)
     }
-    // console.log("Mystery of what is postObj -- ", postObj);
-    // console.log("Mystery of what postObj is!! -- ",postObj[1]);
-    // for ( let i=0; i < postObj.length; i++){
-    //   postArr.push(postObj[i], "")
-    // }
-
-    // console.log("****", postObj);
-    console.log("++++ EVERY POST IN SQL ++++", postArr);
     setEveryPost(postArr)
-    // console.log("++++++++", everyPost.map(post => post), "++++++++");
   };
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                                          USEEFFECT-OOOO
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                                          USEEFFECT-OOOO
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   useEffect(() => {
     grabEveryPost();
   }, []);
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
   return (
-    <div id="mainBodyHomePage">
+    <div id="mainBodyHomePage" >
       {/* LEFT SIDE */}
       <IconNav
         setPostForm={props.setPostForm}
         postForm={props.PostForm}
         renderPost={props.renderPost}
       />
-
       {/* Middle */}
-      <div id="allContent">
-        <h2>Home</h2>
+      <div className="w-2/3">
+        <div className="align-center border-4 bg-blue-300  w-full shadow-lg shadow-blue-300"
+          style={{ marginLeft: "2%", width: "54.5vw" }}>
+          <p className="hover:underline-offset-4">
+            <PersonIcon className="mt-6 hover:border-b-4 hover:cursor-none"
+              sx={{ fontSize: 100 }}
+              onClick={() => history.push("/profile")}
+            />
+          </p>
+          <h2 className="text-6xl text-blue-900 
+              font-bold underline  ml-60">
+            Home
+          </h2>
 
-        <p className="flex">
-          <PersonIcon
-            sx={{ fontSize: 100 }}
-            onClick={() => history.push("/profile")}
-          />
-          <input placeholder="What's happening?" />
-        </p>
-        {JSON.stringify(everyPost)}
-        <div style={{margin:"2%"}}>
-          {/* {JSON.stringify(everyPost)} */}
+        </div>
+        <div style={{ margin: "2%" }}>
+          {error}
           {
             everyPost ? (
-              // <h1>--{everyPost[1]}</h1>
               everyPost.map((post, idx) => {
-                return(
+                return (
                   <div key={idx} className="flex flex-row 
-                    justify-between 
-                    mb-5 p-3
-                    rounded
-                    border-blue-900	bg-blue-200  
-                    shadow-xl shadow-blue-300
+                  justify-between mb-5 p-3 rounded
+                  border-blue-900	bg-blue-200  
+                  shadow-xl shadow-blue-300
                   ">
-                    <p> {post.post} </p>
-                    {/* <p > {post.id} </p> */}
                     <div>
-                      <>0</>
-                      <>- {} -</>
+                      <p> @{post.user_name} </p>
+                      <p> {post.post} </p>
+                    </div>
+                    <div>
+                      <> points: {post.points}  </>
+                      {/* <> points: {(grabPoints(post.id))}  </> */}
                       <p className=" " onClick={() => (addPoint(post.id))}> <DoneAll /> </p>
                     </div>
                   </div>
                 )
               })
-            ) :"XXXXXXXXXXXXXXXX"
-
+            ) : "Sorry posts aren't loading. Please try refreshing."
           }
-          
         </div>
-
-        <h4>{JSON.stringify(everyPost.data)}</h4>
-
-        {props.postForm ? <Post setPostForm={props.setPostForm} /> : null}
+        {props.postForm ? <Post setPostForm={props.setPostForm} everyPost={everyPost} setEveryPost={setEveryPost} /> : null}
       </div>
       {/* RIGHT SIDE */}
-
       <NewsAPI />
     </div>
   );

@@ -8,6 +8,7 @@
   padding: 0 50px 50px 50px;
   border-radius: 10%;
 }
+
 #header {
   display: flex;
   justify-content: space-between;

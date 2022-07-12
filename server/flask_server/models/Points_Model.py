@@ -1,51 +1,48 @@
 # \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
+#                                  -------------------------------------------
 from flask_server.config.mysqlconnection import connectToMySQL
 from flask import flash, session
 from flask_server.models import User_Model
 
 schema = "twitisphere_schema"
-class Post:
+class Point:
     def __init__( self , data ):
         self.id = data['id']
-        self.post = data['post']
-        self.created_at = data['created_at']
-        self.updated_at = data['updated_at']
         self.user_id = data['user_id']
+        self.post_id = data['post_id']
 
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
- 
+
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                         SAVE POST
+#                                       ADD POINT TO POST 
 # ______________________________________________________________________________________________________
-    @classmethod
-    def save(cls, data):
-        query = "INSERT INTO post ( post, user_id ) VALUES (%(post)s, %(user_id)s);"
+    @staticmethod
+    def add_point(data):
+        query = "INSERT INTO twitisphere_schema.point (post_id, user_id) VALUES (%(post_id)s, %(user_id)s);"
         result = connectToMySQL(schema).query_db(query,data)
         return result
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
+  
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                         GET EVERY POSTS
+#                                    CHECK IF LIKED ALREADY
 # ______________________________________________________________________________________________________
     @classmethod
-    def get_following_posts(cls):
-        query = "SELECT * FROM twitisphere_schema.post LEFT JOIN follows ON following_id=user_id LEFT JOIN user ON  following_id = user.id where follower_user_id= " + str(session['user_id']) + ";"
-        results = connectToMySQL(schema).query_db(query)
-        print(results,"******************")
+    def check_point(cls,data):
+        query = "SELECT user_id FROM point WHERE post_id=%(id)s;" 
+        results = connectToMySQL(schema).query_db(query,data)
+        # print("%%%% check points from post -- ", results)
         return results
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        GET USERS POSTS 
+#                                  COUNT TOTAL POINTS FOR A POST
 # ______________________________________________________________________________________________________
-    @classmethod
-    def get_users_posts(cls):
-        query = "SELECT * FROM twitisphere_schema.post where user_id= " + str(session['user_id']) + ";" 
-        results = connectToMySQL(schema).query_db(query)
-        return results
+    @staticmethod
+    def count_points(data):
+        query = "SELECT * FROM point WHERE post_id=%(id)s;" 
+        results = connectToMySQL(schema).query_db(query,data)
+        print("%%%% ALL THE POINTS FOR THIS POST -- ", results)
+        return len(results)
 # ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-

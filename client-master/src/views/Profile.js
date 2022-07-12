@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from "react";
+// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+//                                   -----------------------------------------
+import React, { useState, useEffect } from "react";
+import Follows from "../components/follows/Follows"
 import IconNav from "../components/IconNav";
 import NewsAPI from "../components/NewsAPI";
-// import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import "../CSS/ProfilePage.css";
@@ -9,142 +11,109 @@ import EditProfile from "../components/EditProfile";
 import Settings from "../components/Settings";
 import Post from "../components/Post"
 import axios from "axios";
-
+// ----------------------------------------------------------------------------------------------------------
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 const Profile = (props) => {
-  // let arrow = "<-";
-  
-  const [userId, setUserId] = useState(0)
+
+  // STATE VARIABLES
+  const [userInfo, setUserInfo] = useState({})
   const [editProfile, setEditProfile] = useState(false);
   const [settings, setSettings] = useState(false);
-  const [image, setImage] = useState();
-  const [userName, setUserName] = useState();
+  const [image, setImage] = useState({});
+  const [followers, setFollowers] = useState({});
+  const [following, setFollowing] = useState({});
   const [usersPosts, setUsersPosts] = useState([""]);
-  const [userAndPosts, setUserAndPosts] = useState([[]]);
 
+  // State variables for follows component
+  const [followsComp, setFollowsComp] = useState(false)
+  const [followersComp, setFollowersComp] = useState(false)
+  const [followingComp, setFollowingComp] = useState(false)
 
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                               GET ALL USERS POSTS
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const getUsersPosts = () => {
     axios.get("/users/posts")
       .then((res) => {
         pullPosts(res.data);
-        // console.log(res,"****** users posts res from axios *****");
       })
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-  const getUserAndPosts = () => {
-    axios.get("/user/and/posts")
+
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                              GET ALL USERS POSTS AND USERS INFO
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  const getUserInfo = () => {
+    axios.get("/user/info")
       .then((res) => {
-        pullUserAndPosts(res.data);
-        // console.log(res,"****** users posts res from axios *****");
+        console.log(res);
+        setUserInfo(res.data)
       })
-      .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
+      .catch(err => console.log(err, "**** AXIOS GET USER INFO ERR ****"))
   }
-  const getUserId = () => {
-    axios.get("/get/user/id")
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                                   GET ALL FOLLOWS
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  const getFollows = () => {
+    axios.get("/follows")
       .then((res) => {
-        console.log(res.data['id'],"****** get user id res from axios *****");
-        // setUserId(res);
-        setUserId(res.data['id'])
-        console.log("userId in state -- ", userId);
-        if(userId === 0){
-          setUserId(res.data["id"])
-          console.log("userId reInstated -- ", userId);
-
-        }
+        setFollowers(res.data.followers);
+        setFollowing(res.data.following);
       })
-      .catch(err => console.log(err, "**** GET USER NAME AXIOS FAIL ****"))
+      .catch(err => {
+        console.log("**** AXIOS GET FOLLOWS ERR ****", err)
+      })
   }
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                              Grab keys put into array and grab each post 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-let pullPosts = (dict) => {
-  let postKeys = Object.keys(dict)
-  let postObj = {};
-  let postArr = [];
-  for (let i=0; i < postKeys.length ; i++) {
-    postArr.push(dict[postKeys[i]].post)
-  }
-  for ( let i=0; i < postObj.length; i++){
-    postArr.push(postObj[i], "")
-  }
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-  // console.log("****", dict);
-  // console.log("++++ EVERY POST IN SQL ++++", postArr);
-  setUsersPosts(postArr)
-  // console.log("++++++++", everyPost.map(post => post), "++++++++");
-};
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                              GRAB USER AND THEIR POSTS
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-let pullUserAndPosts = (dict) => {
-  let postKeys = Object.keys(dict)
-  let postObj = {};
-  let postArr = [];
-  // console.log("**** PULL USER AND POSTS ********");
-  for (let i=0; i < postKeys.length ; i++) {
-    postArr.push(dict[postKeys[i]])
-  }
-  for ( let i=0; i < postObj.length; i++){
-    postArr.push(postObj[i], "")
-  }
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                             HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
+  //                                       PROCESS ALL USERS POSTS 
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  let pullPosts = (dict) => {
+    let postKeys = Object.keys(dict)
+    let postObj = {};
+    let postArr = [];
+    for (let i = 0; i < postKeys.length; i++) {
+      postArr.push(dict[postKeys[i]].post)
+    }
+    for (let i = 0; i < postObj.length; i++) {
+      postArr.push(postObj[i], "")
+    }
+    setUsersPosts(postArr)
+  };
+  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  
 
-  // console.log("****", postObj);
-  // console.log("++++** EVERY POST IN SQL **++++", postArr);
-  setUserAndPosts(postArr)
-  // console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-  // console.log("++++++++", everyPost.map(post => post), "++++++++");
-};
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//                              GRAB USER NAME
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-let pullUserName = (dict) => {
-  let postKeys = Object.keys(dict)
-  let postObj = {};
-  let postArr = [];
-  console.log("**** PULL USER NAME ********");
-  for (let i=0; i < postKeys.length ; i++) {
-    postArr.push(dict[postKeys[i]])
-  }
-  for ( let i=0; i < postObj.length; i++){
-    postArr.push(postObj[i], "")
-  }
-
-  // console.log("****", postObj);
-  console.log("++++** EVERY POST IN SQL **++++", postArr);
-  setUserAndPosts(postArr)
-  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-  // console.log("++++++++", everyPost.map(post => post), "++++++++");
-};
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-   // useEffect
-   useEffect(() => {
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                                          USEEFFECT-OOOO
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  useEffect(() => {
     getUsersPosts();
   }, [])
-   // useEffect
-   useEffect(() => {
-    getUserAndPosts();
+// ------------------
+  useEffect(() => {
+    getUserInfo();
   }, [])
-   // useEffect
-   useEffect(() => {
-    getUserId();
+// ------------------
+  useEffect(() => {
+    getFollows();
   }, [])
-
-  // let imageUpload = (e) => {
-  //   console.log(e.target.files);
-  //   setImage(e.target)
-  // }
+  // // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
   return (
     <div id="mainBodyHomePage">
       {/* ICON NAV BAR */}
-      <IconNav setPostForm={props.setPostForm} postForm={props.PostForm} renderPost={props.renderPost}/>
+      <IconNav setPostForm={props.setPostForm} postForm={props.PostForm} renderPost={props.renderPost} />
       {/* MAIN CONTENT OF PROFILE PAGE */}
-      <div id="profilePageUser" className="m-3">
+      <div className="m-3 w-2/3">
         {/* HEADER OF USER PROFILE */}
         {/* USERS BACKGROUND AND PROFILE PIC WILL BE DISPLAYED HERE */}
         <div>
@@ -154,67 +123,60 @@ let pullUserName = (dict) => {
           {/* SMALL IMAGE HERE */}
           <div id="bottomOfPicture">
             <PersonIcon sx={{ fontSize: 100 }} id="userPic" />
-            <p 
-              onClick={()=>setEditProfile(true)}>
+            <p
+              onClick={() => {
+                setSettings(true)
+              }}>
               <SettingsSuggestIcon sx={{ fontSize: 100 }} />
             </p>
           </div>
-          {
-            userAndPosts[0] ? (
-              <div>
-                <h2>{userAndPosts[0].first_name}</h2>
-                <p>@{userAndPosts[0].user_name}</p> 
-                <div className="flex">
-                  <p>X :Following</p>
-                  <p>X :Followers</p>
-                </div>
-                <h1>Posts:{usersPosts.length}</h1>
-                <hr />
-              </div>
 
-            ) : (
-            <div> 
-              <h2>Name</h2>
-              <p>@Name</p> 
-                <div className="flex">
-                <p>X :Following</p>
-                <p>X :Followers</p>
-              </div>
-              <h1>Posts:</h1>
-              <hr />
+          <div>
+            <h2>{userInfo.first_name} {userInfo.last_name}</h2>
+            <p>@{userInfo.user_name}</p>
+            <div className="flex">
+              <p className="mr-2"
+              onClick={() => {
+                setFollowsComp(true)
+                setFollowingComp(true)
+                setFollowersComp(false)
+              }}>{following.length} :Following </p>
+              <p onClick={() => {
+                setFollowsComp(true)
+                setFollowersComp(true)
+                setFollowingComp(false)
+              }}> {followers.length} :Followers</p>
             </div>
-            )
-          }
+            <h1>Posts: {usersPosts.length}</h1>
+            <hr />
+          </div>
 
-          <h1 className="bg-red-400">X{JSON.stringify(userName)}X</h1>
-          {
-            userName ? (
-              <h1>HELLOOO ****{userName.email}</h1>
-
-            ):""
-          }
           {
             usersPosts ? (
               // <h1>--{everyPost[1]}</h1>
               usersPosts.map((post, idx) => {
-                return(
-                  <div key={idx} className="border-2 border-blue-900 rounded	bg-blue-200 mb-1 p-3 ">
+                return (
+                  <div key={idx} className="
+                  mb-5 p-3 rounded
+                  border-blue-900	bg-blue-200  
+                  shadow-xl shadow-blue-300
+                ">
                     <p> {post} </p>
                     {/* <p> <DoneAll /> </p> */}
                   </div>
                 )
               })
-            ) :"Users posts aren't loading!!"
-
+            ) : "Users posts aren't loading!!"
           }
-          -- {JSON.stringify(userAndPosts)} --
-          -- {JSON.stringify(userId)} --
         </div>
-        { props.postForm ? <Post setPostForm={props.setPostForm}  /> : null }
+        {props.postForm ? <Post setPostForm={props.setPostForm} /> : null}
 
         {
           editProfile ? (
-            <EditProfile setImage={setImage} image={image} setEditProfile={setEditProfile} setSettings={setSettings}/>
+            <EditProfile setImage={setImage} 
+            image={image} 
+            setEditProfile={setEditProfile} 
+            setSettings={setSettings} />
           ) : ""
         }
         {
@@ -222,8 +184,20 @@ let pullUserName = (dict) => {
             <Settings setSettings={setSettings} />
           ) : ""
         }
+        {
+          followsComp ? (
+            <Follows 
+              followsComp={followsComp}
+              setFollowsComp={setFollowsComp}
+              followersComp={followersComp}
+              setFollowersComp={setFollowersComp}
+              followingComp={followingComp}
+              setFollowingComp={setFollowingComp}
+              />
+          ): ""
+        }
       </div>
-      {/* NEW SIDE OF CONTENT */}
+      {/* NEWS SIDE OF CONTENT */}
       <NewsAPI />
     </div>
   );

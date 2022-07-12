@@ -1,12 +1,20 @@
+// \\\\\\<$A$>///////\\\\\\<$A$>///////  ____________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
+//                                    -----------------------------------------
 import React, { useState } from "react";
 import "../CSS/AboutTheDev.css";
 import { Link } from "react-router-dom";
 
-const AboutTheDevs = (props) => {
-  const [ant, setAnt] = useState(false);
-  const [reza, setReza] = useState(false);
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+// ----------------------------------------------------------------------------------------------------------
+// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-  // Controls what is being rendered on the page
+const AboutTheDevs = (props) => {
+  // STATE VARIABLE
+  const [ant, setAnt] = useState(false);
+
+  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //                           CONTROLS WHATS BEING RENDERED ON THE HOVER 
+  // ______________________________________________________________________________________________________
   const renderAnt = (e) => {
     if (e === null) {
       setAnt(false);
@@ -14,21 +22,14 @@ const AboutTheDevs = (props) => {
       setAnt(true);
     }
   };
-  const renderReza = (e) => {
-    if (e === null) {
-      setReza(false);
-    } else {
-      setReza(true);
-    }
-  };
+  //  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
   return (
     <div className="the-div">
       <Link to="/" className="button-15">Go To Login</Link>
 
-    <div className="layout">
-      
-      {/* Anthony's tribute */}
+      <div className="layout">
 
         {ant ? (
           <div className="border"
@@ -44,8 +45,8 @@ const AboutTheDevs = (props) => {
             <h1>All About Anthony</h1>
           </div>
         )}
-    
-    </div>
+
+      </div>
     </div>
 
   );

@@ -8,6 +8,12 @@ module.exports = {
     "./src/views/FindUsers.js",
     "./src/views/Feed.js",
     "./src/views/Profile.js",
+    "./src/views/Main.js",
+    "./src/views/SimpleLoginReg/Reg.js",
+    "./src/components/EditProfile.js",
+    "./src/components/follows/Following.js",
+    "./src/components/follows/FlipComps/Followers.js",
+    "./src/components/follows/FlipComps/Following.js",
 
   ],
   theme: {
