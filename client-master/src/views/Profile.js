@@ -1,5 +1,3 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
 import React, { useState, useEffect } from "react";
 import Follows from "../components/follows/Follows"
 import IconNav from "../components/IconNav";
@@ -11,8 +9,6 @@ import EditProfile from "../components/EditProfile";
 import Settings from "../components/Settings";
 import Post from "../components/Post"
 import axios from "axios";
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 const Profile = (props) => {
 
@@ -30,9 +26,7 @@ const Profile = (props) => {
   const [followersComp, setFollowersComp] = useState(false)
   const [followingComp, setFollowingComp] = useState(false)
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                               GET ALL USERS POSTS
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //  GET ALL USERS POSTS
   const getUsersPosts = () => {
     axios.get("/users/posts")
       .then((res) => {
@@ -40,12 +34,9 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                              GET ALL USERS POSTS AND USERS INFO
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  // GET ALL USERS POSTS AND USERS INFO
   const getUserInfo = () => {
     axios.get("/user/info")
       .then((res) => {
@@ -54,12 +45,8 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET USER INFO ERR ****"))
   }
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                                   GET ALL FOLLOWS
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  // GET ALL FOLLOWS
   const getFollows = () => {
     axios.get("/follows")
       .then((res) => {
@@ -70,13 +57,9 @@ const Profile = (props) => {
         console.log("**** AXIOS GET FOLLOWS ERR ****", err)
       })
   }
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                             HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
-  //                                       PROCESS ALL USERS POSTS 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //  HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
   let pullPosts = (dict) => {
     let postKeys = Object.keys(dict)
     let postObj = {};
@@ -89,12 +72,7 @@ const Profile = (props) => {
     }
     setUsersPosts(postArr)
   };
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
   
-
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                                          USEEFFECT-OOOO
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   useEffect(() => {
     getUsersPosts();
   }, [])
@@ -106,7 +84,6 @@ const Profile = (props) => {
   useEffect(() => {
     getFollows();
   }, [])
-  // // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
   return (
     <div id="mainBodyHomePage">
