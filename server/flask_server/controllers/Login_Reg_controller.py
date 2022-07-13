@@ -1,5 +1,3 @@
-# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_server import app
 from flask_server.models.Login_Reg_model import Log_Reg
@@ -7,9 +5,7 @@ from flask_bcrypt import Bcrypt
 import re 
 bcrypt = Bcrypt(app)
  
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        CREATE NEW USER
-# ______________________________________________________________________________________________________
+# CREATE NEW USER
 @app.route('/create/user', methods=['POST'])
 def create_user():
     user_data = request.get_json()
@@ -39,19 +35,15 @@ def create_user():
     user_id = Log_Reg.save(data)
     session['user_id'] = user_id
     return ("User has been saved")
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                       LET USER LOGIN 
-# ______________________________________________________________________________________________________
+# LET USER LOGIN 
 @app.route('/login' , methods = ['POST'])
 def login():
     data = request.get_json()
     user_id = Log_Reg.get_by_email(data)
     print(user_id,"____________________")
     if not bcrypt.check_password_hash( user_id[0]["password"], data["password"] ):
-        print("Password didn't work for some reason <><><<<><><>><><><><><><><><><><><><><><><><><><")
         return False
     if not Log_Reg.validate_login(data):
         print("INVALID EMAIL FROM USER CONTROLLER")
@@ -59,22 +51,12 @@ def login():
     catch={}
     for user in user_id:
         catch.update({user["id"]: user})
-    print( "******************************************" , user_id[0]["id"] )
     session["user_id"] = user_id[0]["id"]
-    # if not User.validate_login(request.form):
-    #     flash("Invalid Email/Password")
-    #     return redirect("/")
-    # if not user:
-    #     return redirect ('/')
     return catch
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                              LOG OUT AND REMOVE USER_ID FROM SESSION
-# ______________________________________________________________________________________________________
+# LOG OUT AND REMOVE USER_ID FROM SESSION
 @app.route('/logout')
 def logout():
     session.clear()
     return "user_id popped from session"
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
