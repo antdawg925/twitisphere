@@ -1,5 +1,3 @@
-# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
 from flask_server.config.mysqlconnection import connectToMySQL
 from flask import flash, session
 from flask_server import app
@@ -23,10 +21,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        GET USER 
-# ______________________________________________________________________________________________________
+# GET USER 
     @classmethod
     def get_user(cls):
         query = "SELECT * FROM twitisphere_schema.user WHERE user.id=" + str(session['user_id']) + ";"  
@@ -34,16 +29,12 @@ class User:
         if not results:
             return[]
         return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     GET EVERY USER
-# ______________________________________________________________________________________________________
+# GET EVERY USER
     @classmethod
     def get_every_user(cls):
         query = "SELECT * FROM twitisphere_schema.user;" 
         results = connectToMySQL(schema).query_db(query)
         return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
