@@ -1,11 +1,7 @@
-# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_server import app
 from flask_server.models.Follows_model import Follow
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        GET FOLLOWS
-# ______________________________________________________________________________________________________
+# GET FOLLOWS
 @app.route("/follows")
 def get_followsC():
     all_following = Follow.get_following()
@@ -16,12 +12,9 @@ def get_followsC():
         "followers": all_followers,
     }
     return follows
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
  
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        FOLLOW A USER
-# ______________________________________________________________________________________________________
+#  FOLLOW A USER
 @app.route("/follow", methods = ['POST'])
 def follow():
     # ----------- So you cant follow yourself -----------
@@ -48,4 +41,3 @@ def follow():
     }
     Follow.follow(data);
     return ("User has been followed")
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
