@@ -14,11 +14,7 @@ const Following = () => {
                 
             })
     }
-    
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                             HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
-  //                                       PROCESS ALL USERS POSTS 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ 
   let pullFollowing = (dict) => {
     console.log(dict,")))))))");
     let postObj = {};
@@ -35,7 +31,7 @@ const Following = () => {
     console.log(following, "_________");
     return following
   };
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
   
     useEffect(() => {
         getFollowing()
