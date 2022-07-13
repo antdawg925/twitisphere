@@ -18,10 +18,6 @@ const Followers = () => {
             .catch(err => console.log(err))
     }
 
-    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    //                             HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
-    //                                       PROCESS ALL USERS POSTS 
-    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     let pullFollower = (dict) => {
         console.log("Received obj", dict);
         let postArr = [];
@@ -34,7 +30,6 @@ const Followers = () => {
         console.log(follower, "follower state var!");
         return follower
     };
-    // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
     useEffect(() => {
         getFollower()
