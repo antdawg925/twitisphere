@@ -1,11 +1,7 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  ___________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                    -----------------------------------------
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../CSS/HomePage.css";
 import { useHistory } from 'react-router-dom'
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 const NewsAPI = () => {
 
@@ -14,10 +10,8 @@ const NewsAPI = () => {
   // STATE VARIABLE
   const [news, setNews] = useState([]);
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                               RETRIEVING NY TIMES NEWS FROM API
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  
+ 
+  //  RETRIEVING NY TIMES NEWS FROM API
   const axiosNews = () => {
     const newsCatcher = [];
     axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=new+york+times&page=2&sort=oldest&api-key=Uh8kclNaPnGtLJAhGbU5hTStY36qZz8z")
@@ -39,7 +33,6 @@ const NewsAPI = () => {
   useEffect(() => {
     axiosNews();
   }, [])
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
   return (
