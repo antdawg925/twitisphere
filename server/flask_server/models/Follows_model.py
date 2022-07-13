@@ -11,7 +11,6 @@ class Follow:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
- 
 # FOLLOW A USER
     @classmethod
     def follow(cls, data):
@@ -20,8 +19,7 @@ class Follow:
         result = connectToMySQL(schema).query_db(query,data)
         return result
 
-
-# GET FOLLOWING
+#  GET FOLLOWING
     @classmethod
     def get_following(cls):
         query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on following_id=user.id " \
@@ -29,21 +27,18 @@ class Follow:
         results = connectToMySQL(schema).query_db(query)
         return results
 
-
-# GET FOLLOWER
+#   GET FOLLOWER
     @classmethod
     def get_followers(cls):
-        query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on following_id=user.id " \
+        query = "SELECT * FROM twitisphere_schema.follows LEFT JOIN twitisphere_schema.user on follower_user_id=user.id " \
             " WHERE following_id="+ str(session['user_id']) + ";" 
         results = connectToMySQL(schema).query_db(query)
         return results
-
-
 
 #  CHECK IF FOLLOWING
     @classmethod
     def check_following(cls,data):
         query = "SELECT follower_user_id FROM follows WHERE following_id=%(id)s;" 
         results = connectToMySQL(schema).query_db(query,data)
-        print("%%%% check if follwoing res -- ", results)
+        # print("%%%% check if follwoing res -- ", results)
         return results
