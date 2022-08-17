@@ -1,5 +1,4 @@
-# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
+
 from cmath import log
 from flask import Flask, render_template, request, session
 from flask_server import app
@@ -7,9 +6,7 @@ from flask_server.models.Post_Model import Post
 from flask_server.models.Points_Model import Point
 
  
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                     ADD POINT TO A POST
-# ____________________________________________________________________________________________________
+
 @app.route("/add/point", methods=["POST"])
 def add_point():
     post_id = request.get_json()
@@ -30,12 +27,7 @@ def add_point():
     }
     Point.add_point(data)
     return ('point has bene added to post')
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                            COUNT UP POINTS FOR A POST
-# ______________________________________________________________________________________________________
 @app.route("/count/points", methods=["POST"])
 def count_point():
     post_id = request.get_json()
@@ -48,5 +40,4 @@ def count_point():
     }
     print("$$$$$$$$$$",points)
     return points
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 

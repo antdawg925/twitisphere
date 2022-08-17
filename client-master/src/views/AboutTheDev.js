@@ -1,20 +1,13 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  ____________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                    -----------------------------------------
+
 import React, { useState } from "react";
 import "../CSS/AboutTheDev.css";
 import { Link } from "react-router-dom";
 
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 const AboutTheDevs = (props) => {
   // STATE VARIABLE
   const [ant, setAnt] = useState(false);
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                           CONTROLS WHATS BEING RENDERED ON THE HOVER 
-  // ______________________________________________________________________________________________________
   const renderAnt = (e) => {
     if (e === null) {
       setAnt(false);
@@ -22,7 +15,7 @@ const AboutTheDevs = (props) => {
       setAnt(true);
     }
   };
-  //  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+ 
 
 
   return (

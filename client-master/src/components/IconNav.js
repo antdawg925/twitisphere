@@ -1,5 +1,4 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
+
 import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -8,11 +7,9 @@ import People from "@mui/icons-material/People";
 import "../CSS/HomePage.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 const IconNav = (props) => {
-  //  history.push("/") is used to navigate to other routes
   const history = useHistory();
   const handleHome = () => {
     history.push("/home/feed");
@@ -54,7 +51,6 @@ const IconNav = (props) => {
         onClick={() => logOut()}>
         LOG OUT
       </button>
-      {/* {postForm ? <Post setPostForm={setPostForm} /> : ""} */}
     </div>
   );
 };

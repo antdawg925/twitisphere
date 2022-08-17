@@ -1,5 +1,4 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  ___________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
+
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
@@ -21,9 +20,7 @@ const Login = () => {
         checkLoggedIn();
     }, [])
 
-    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    //                         LETS USER LOGIN TO THEIR ACCOUNT
-    // ______________________________________________________________________________________________________
+    
     let loginUser = (e) => {
         e.preventDefault();
         console.log("Lets log the email! --", email);
@@ -41,8 +38,7 @@ const Login = () => {
                 // console.log("email or password is hopefullly just wrong Login.js ");
             })
     }
-    //  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
+    
 
     return (
         <div className='bg-slate-100 ' style={{ height: "100vh" }}>

@@ -1,5 +1,4 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
+
 import React, { useState, useEffect } from "react";
 import Follows from "../components/follows/Follows"
 import IconNav from "../components/IconNav";
@@ -11,9 +10,6 @@ import EditProfile from "../components/EditProfile";
 import Settings from "../components/Settings";
 import Post from "../components/Post"
 import axios from "axios";
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
 const Profile = (props) => {
 
   // STATE VARIABLES
@@ -28,11 +24,8 @@ const Profile = (props) => {
   // State variables for follows component
   const [followsComp, setFollowsComp] = useState(false)
   const [followersComp, setFollowersComp] = useState(false)
-  const [followingComp, setFollowingComp] = useState(false)
+  const [followingComp, setFollowingComp] = useState(false) 
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                               GET ALL USERS POSTS
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const getUsersPosts = () => {
     axios.get("/users/posts")
       .then((res) => {
@@ -40,12 +33,7 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                              GET ALL USERS POSTS AND USERS INFO
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  
   const getUserInfo = () => {
     axios.get("/user/info")
       .then((res) => {
@@ -54,12 +42,6 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET USER INFO ERR ****"))
   }
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                                   GET ALL FOLLOWS
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const getFollows = () => {
     axios.get("/follows")
       .then((res) => {
@@ -70,64 +52,37 @@ const Profile = (props) => {
         console.log("**** AXIOS GET FOLLOWS ERR ****", err)
       })
   }
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
-
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                             HANDLE ALL INFORMATION RECEIVED FROM SQL QUERY AND 
-  //                                       PROCESS ALL USERS POSTS 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  
   let pullPosts = (dict) => {
     let postKeys = Object.keys(dict)
-    let postObj = {};
     let postArr = [];
     for (let i = 0; i < postKeys.length; i++) {
-      postArr.push(dict[postKeys[i]].post)
-    }
-    for (let i = 0; i < postObj.length; i++) {
-      postArr.push(postObj[i], "")
+      postArr.push(dict[postKeys[i]])
     }
     setUsersPosts(postArr)
   };
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-  
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                                          USEEFFECT-OOOO
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   useEffect(() => {
     getUsersPosts();
-  }, [])
-// ------------------
-  useEffect(() => {
     getUserInfo();
-  }, [])
-// ------------------
-  useEffect(() => {
     getFollows();
   }, [])
-  // // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+  
 
   return (
     <div id="mainBodyHomePage">
-      {/* ICON NAV BAR */}
       <IconNav setPostForm={props.setPostForm} postForm={props.PostForm} renderPost={props.renderPost} />
-      {/* MAIN CONTENT OF PROFILE PAGE */}
       <div className="m-3 w-2/3">
-        {/* HEADER OF USER PROFILE */}
-        {/* USERS BACKGROUND AND PROFILE PIC WILL BE DISPLAYED HERE */}
         <div>
-          {/* BIG IMAGE HERE */}
-          {/* DELETE THIS DIV WHEN IMAGE IS READY */}
           <div id="tempImage"></div>
-          {/* SMALL IMAGE HERE */}
           <div id="bottomOfPicture">
             <PersonIcon sx={{ fontSize: 100 }} id="userPic" />
             <p
               onClick={() => {
                 setSettings(true)
               }}>
-              <SettingsSuggestIcon sx={{ fontSize: 100 }} />
+              <SettingsSuggestIcon sx={{ fontSize: 100 }}  />
             </p>
           </div>
 
@@ -153,16 +108,15 @@ const Profile = (props) => {
 
           {
             usersPosts ? (
-              // <h1>--{everyPost[1]}</h1>
               usersPosts.map((post, idx) => {
                 return (
                   <div key={idx} className="
-                  mb-5 p-3 rounded
-                  border-blue-900	bg-blue-200  
-                  shadow-xl shadow-blue-300
-                ">
-                    <p> {post} </p>
-                    {/* <p> <DoneAll /> </p> */}
+                    mb-5 p-4 rounded
+                    border-blue-900	bg-blue-200  
+                    shadow-xl shadow-blue-300 flex justify-between
+                  ">
+                    <p> {post.post} </p>
+                    <p> Points: {post.points} </p>
                   </div>
                 )
               })
@@ -197,7 +151,6 @@ const Profile = (props) => {
           ): ""
         }
       </div>
-      {/* NEWS SIDE OF CONTENT */}
       <NewsAPI />
     </div>
   );

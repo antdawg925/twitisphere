@@ -1,5 +1,3 @@
-# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
 from flask_server.config.mysqlconnection import connectToMySQL
 from flask_server import app
 from flask_bcrypt import Bcrypt
@@ -24,56 +22,33 @@ class Log_Reg:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at'] 
 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                         SAVE USER
-# ______________________________________________________________________________________________________
     @classmethod
     def save(cls, data):
         query = "INSERT INTO user ( first_name, last_name, user_name, email, password) " \
         "VALUES (%(first_name)s , %(last_name)s , %(user_name)s, %(email)s , %(password)s );"
         result = connectToMySQL(schema).query_db(query,data)
         return result
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                    CHECK IF EMAIL IS USED
-# ______________________________________________________________________________________________________
     @classmethod
     def check_email(cls,data):
         query = "SELECT email FROM user WHERE email=%(email)s;" 
         results = connectToMySQL(schema).query_db(query,data)
         # print("%%%% check if email exists -- ", results)
         return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
- 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                    CHECK IF USERNAME IS USED
-# ______________________________________________________________________________________________________
     @classmethod
     def check_user_name(cls,data):
         query = "SELECT user_name FROM user WHERE user_name=%(user_name)s;" 
         results = connectToMySQL(schema).query_db(query,data)
         # print("%%%% check if userName exists -- ", results)
-        return results
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+        return results  
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        GET USER BY EMAIL
-# ______________________________________________________________________________________________________    
     @classmethod
     def get_by_email(cls,data):
         query = "SELECT * FROM user WHERE email = %(email)s;"
         result = connectToMySQL(schema).query_db(query,data)
         return result
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                  VALIDATE USER REG INFO
-# ______________________________________________________________________________________________________
 # NOT IMPLEMENTED YET
     @staticmethod
     def validate_info(user):
@@ -98,29 +73,16 @@ class Log_Reg:
             is_valid = False
         print('valid entered info send to bcrypt')
         return is_valid
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
-
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                    VALIDATE LOGIN INFO
-# ______________________________________________________________________________________________________
     @staticmethod
     def validate_login( user ):
         print('validating login info')
         is_valid = True
-        # if len(user['email']) < 3:
-        #     flash("Email must be at least 3 characters.")
-        #     is_valid = False
         if not EMAIL_REGEX.match(user['email']): 
             flash("Invalid email/password!")
             is_valid = False
             print('XXXXXXXXXXXX passes regex step XXXXXXXXXX')
-
-        # if len(user['password']) < 8:
-        #     flash("Password must be at least 8 characters.")
-        #     is_valid = False
         return is_valid
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 
 

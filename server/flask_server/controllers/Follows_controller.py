@@ -1,27 +1,18 @@
-# \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-#                                   -----------------------------------------
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_server import app
 from flask_server.models.Follows_model import Follow
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #                                        GET FOLLOWS
-# ______________________________________________________________________________________________________
 @app.route("/follows")
 def get_followsC():
     all_following = Follow.get_following()
     all_followers = Follow.get_followers()
-    # print("get_follows controller received query return ",all_following)
     follows = {
         "following": all_following,
         "followers": all_followers,
     }
     return follows
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
- 
-# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#                                        FOLLOW A USER
-# ______________________________________________________________________________________________________
+# FOLLOW A USER
 @app.route("/follow", methods = ['POST'])
 def follow():
     # ----------- So you cant follow yourself -----------
@@ -36,9 +27,7 @@ def follow():
     followers = Follow.check_following(following_id)
     print("Got followers back ! --", followers)
     for value in followers:
-        # print(value["follower_user_id"])
         if(value["follower_user_id"] == session["user_id"]):
-            # print("I think he already follow them!")
             error={
                 "error":"You already follow them!"
             }
@@ -48,4 +37,3 @@ def follow():
     }
     Follow.follow(data);
     return ("User has been followed")
-# ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ

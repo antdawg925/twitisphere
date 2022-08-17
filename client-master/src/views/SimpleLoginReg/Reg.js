@@ -1,5 +1,4 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  ____________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
+
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
@@ -28,9 +27,6 @@ const Reg = () => {
         checkLoggedIn();
     }, [])
 
-    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    //                           CREATE USER ON COMPLETION OF REG.JS FORM
-    // ______________________________________________________________________________________________________
     const createUser = (e) => {
         e.preventDefault();
         if (confirm_password === password) {

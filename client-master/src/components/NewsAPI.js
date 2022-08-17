@@ -1,22 +1,16 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  ___________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                    -----------------------------------------
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../CSS/HomePage.css";
 import { useHistory } from 'react-router-dom'
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 const NewsAPI = () => {
 
-  //  history.push("/") is used to navigate to other routes
   const history = useHistory()
-  // STATE VARIABLE
   const [news, setNews] = useState([]);
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                               RETRIEVING NY TIMES NEWS FROM API
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  
   
   const axiosNews = () => {
     const newsCatcher = [];
@@ -39,7 +33,7 @@ const NewsAPI = () => {
   useEffect(() => {
     axiosNews();
   }, [])
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
 
 
   return (

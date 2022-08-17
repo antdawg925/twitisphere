@@ -1,11 +1,7 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
+
 import React, { useState } from "react";
 import axios from "axios";
 import '../CSS/Post.css'
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-// ----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 const Post = (props) => {
   // STATE VARIABLES 
@@ -30,7 +26,7 @@ const Post = (props) => {
   }
 
 
-  return (
+  return ( 
     <div className="main rounded justify-center w-2/5">
 
       <h3 className="headliner">
@@ -51,15 +47,21 @@ const Post = (props) => {
           onChange={(e) => setPost(e.target.value)}
           value={post}
         />
+
         <button className="button3">Post</button> <br />
+
         <button
           onClick={() => props.setPostForm(false)}
           className="but-del"
         >
           Cancel
         </button>
+
       </form>
+
     </div>
+
   );
+  
 };
 export default Post;

@@ -1,20 +1,14 @@
-// \\\\\\<$A$>///////\\\\\\<$A$>///////  _________  IMPORTS  _____________ \\\\\\<$A$>///////\\\\\\<$A$>///////
-//                                   -----------------------------------------
+
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "../CSS/Main.css";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-// -----------------------------------------------------------------------------------------------------------
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 const Main = () => {
   //  history.push("/") is used to navigate to other routes
   const history = useHistory();
 
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  //                             CHECK TO SEE IF USER IS LOGGED IN
-  // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   const checkLoggedIn = () => {
     if (localStorage.getItem("logged_in") == "yes") {
       history.push('/profile')
@@ -24,7 +18,7 @@ const Main = () => {
   useEffect(() => {
     checkLoggedIn();
   }, [])
-  // ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+ 
 
   return (
     <div id="leftCol">
