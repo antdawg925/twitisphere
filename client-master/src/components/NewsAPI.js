@@ -4,14 +4,16 @@ import axios from "axios";
 import "../CSS/HomePage.css";
 import { useHistory } from 'react-router-dom'
 
-
+  
 const NewsAPI = () => {
 
+  //  history.push("/") is used to navigate to other routes
   const history = useHistory()
+  // STATE VARIABLE
   const [news, setNews] = useState([]);
 
-  
-  
+ 
+  //  RETRIEVING NY TIMES NEWS FROM API
   const axiosNews = () => {
     const newsCatcher = [];
     axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=new+york+times&page=2&sort=oldest&api-key=Uh8kclNaPnGtLJAhGbU5hTStY36qZz8z")

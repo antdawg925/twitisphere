@@ -18,7 +18,7 @@ const Main = () => {
   useEffect(() => {
     checkLoggedIn();
   }, [])
- 
+
 
   return (
     <div id="leftCol">

@@ -51,11 +51,7 @@ def login():
     for user in user_id:
         catch.update({user["id"]: user})
     session["user_id"] = user_id[0]["id"]
-    # if not User.validate_login(request.form):
-    #     flash("Invalid Email/Password")
-    #     return redirect("/")
-    # if not user:
-    #     return redirect ('/')
+ 
     return catch
 
 @app.route('/logout')

@@ -14,6 +14,7 @@ class Post:
 
     @classmethod
     def save(cls, data):
+        print("save post model")
         query = "INSERT INTO post ( post, user_id ) VALUES (%(post)s, %(user_id)s);"
         result = connectToMySQL(schema).query_db(query,data)
         return result
@@ -30,4 +31,3 @@ class Post:
         query = "SELECT * FROM twitisphere_schema.post where user_id= " + str(session['user_id']) + ";" 
         results = connectToMySQL(schema).query_db(query)
         return results
-

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Follows from "../components/follows/Follows"
 import IconNav from "../components/IconNav";
@@ -10,6 +9,7 @@ import EditProfile from "../components/EditProfile";
 import Settings from "../components/Settings";
 import Post from "../components/Post"
 import axios from "axios";
+
 const Profile = (props) => {
 
   // STATE VARIABLES
@@ -24,8 +24,9 @@ const Profile = (props) => {
   // State variables for follows component
   const [followsComp, setFollowsComp] = useState(false)
   const [followersComp, setFollowersComp] = useState(false)
-  const [followingComp, setFollowingComp] = useState(false) 
+  const [followingComp, setFollowingComp] = useState(false)
 
+  //  GET ALL USERS POSTS
   const getUsersPosts = () => {
     axios.get("/users/posts")
       .then((res) => {
@@ -33,7 +34,10 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
-  
+
+
+
+  // GET ALL USERS POSTS AND USERS INFO
   const getUserInfo = () => {
     axios.get("/user/info")
       .then((res) => {
@@ -42,6 +46,8 @@ const Profile = (props) => {
       })
       .catch(err => console.log(err, "**** AXIOS GET USER INFO ERR ****"))
   }
+
+  // GET ALL FOLLOWS
   const getFollows = () => {
     axios.get("/follows")
       .then((res) => {
@@ -52,7 +58,7 @@ const Profile = (props) => {
         console.log("**** AXIOS GET FOLLOWS ERR ****", err)
       })
   }
-  
+
   let pullPosts = (dict) => {
     let postKeys = Object.keys(dict)
     let postArr = [];
@@ -68,12 +74,16 @@ const Profile = (props) => {
     getFollows();
   }, [])
 
-  
+
 
   return (
     <div id="mainBodyHomePage">
+      {/* ICON NAV BAR */}
       <IconNav setPostForm={props.setPostForm} postForm={props.PostForm} renderPost={props.renderPost} />
+      {/* MAIN CONTENT OF PROFILE PAGE */}
       <div className="m-3 w-2/3">
+        {/* HEADER OF USER PROFILE */}
+        {/* USERS BACKGROUND AND PROFILE PIC WILL BE DISPLAYED HERE */}
         <div>
           <div id="tempImage"></div>
           <div id="bottomOfPicture">
@@ -82,7 +92,7 @@ const Profile = (props) => {
               onClick={() => {
                 setSettings(true)
               }}>
-              <SettingsSuggestIcon sx={{ fontSize: 100 }}  />
+              <SettingsSuggestIcon sx={{ fontSize: 100 }} />
             </p>
           </div>
 
@@ -91,11 +101,11 @@ const Profile = (props) => {
             <p>@{userInfo.user_name}</p>
             <div className="flex">
               <p className="mr-2"
-              onClick={() => {
-                setFollowsComp(true)
-                setFollowingComp(true)
-                setFollowersComp(false)
-              }}>{following.length} :Following </p>
+                onClick={() => {
+                  setFollowsComp(true)
+                  setFollowingComp(true)
+                  setFollowersComp(false)
+                }}>{following.length} :Following </p>
               <p onClick={() => {
                 setFollowsComp(true)
                 setFollowersComp(true)
@@ -117,6 +127,7 @@ const Profile = (props) => {
                   ">
                     <p> {post.post} </p>
                     <p> Points: {post.points} </p>
+      
                   </div>
                 )
               })
@@ -127,10 +138,10 @@ const Profile = (props) => {
 
         {
           editProfile ? (
-            <EditProfile setImage={setImage} 
-            image={image} 
-            setEditProfile={setEditProfile} 
-            setSettings={setSettings} />
+            <EditProfile setImage={setImage}
+              image={image}
+              setEditProfile={setEditProfile}
+              setSettings={setSettings} />
           ) : ""
         }
         {
@@ -140,15 +151,15 @@ const Profile = (props) => {
         }
         {
           followsComp ? (
-            <Follows 
+            <Follows
               followsComp={followsComp}
               setFollowsComp={setFollowsComp}
               followersComp={followersComp}
               setFollowersComp={setFollowersComp}
               followingComp={followingComp}
               setFollowingComp={setFollowingComp}
-              />
-          ): ""
+            />
+          ) : ""
         }
       </div>
       <NewsAPI />

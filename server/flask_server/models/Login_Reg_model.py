@@ -22,6 +22,7 @@ class Log_Reg:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at'] 
 
+# SAVE USER
     @classmethod
     def save(cls, data):
         query = "INSERT INTO user ( first_name, last_name, user_name, email, password) " \
@@ -29,27 +30,31 @@ class Log_Reg:
         result = connectToMySQL(schema).query_db(query,data)
         return result
 
+# CHECK IF EMAIL IS USED
     @classmethod
     def check_email(cls,data):
         query = "SELECT email FROM user WHERE email=%(email)s;" 
         results = connectToMySQL(schema).query_db(query,data)
-        # print("%%%% check if email exists -- ", results)
+        print("%%%% check if email exists -- ", results)
         return results
 
+# CHECK IF USERNAME IS USED
     @classmethod
     def check_user_name(cls,data):
         query = "SELECT user_name FROM user WHERE user_name=%(user_name)s;" 
         results = connectToMySQL(schema).query_db(query,data)
-        # print("%%%% check if userName exists -- ", results)
-        return results  
+        print("%%%% check if userName exists -- ", results)
+        return results
 
+# GET USER BY EMAIL
     @classmethod
     def get_by_email(cls,data):
         query = "SELECT * FROM user WHERE email = %(email)s;"
         result = connectToMySQL(schema).query_db(query,data)
         return result
 
-# NOT IMPLEMENTED YET
+
+# VALIDATE USER REG INFO
     @staticmethod
     def validate_info(user):
         is_valid = True
@@ -74,10 +79,13 @@ class Log_Reg:
         print('valid entered info send to bcrypt')
         return is_valid
 
+
+# VALIDATE LOGIN INFO
     @staticmethod
     def validate_login( user ):
         print('validating login info')
         is_valid = True
+
         if not EMAIL_REGEX.match(user['email']): 
             flash("Invalid email/password!")
             is_valid = False

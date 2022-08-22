@@ -26,7 +26,7 @@ const Post = (props) => {
   }
 
 
-  return ( 
+  return (
     <div className="main rounded justify-center w-2/5">
 
       <h3 className="headliner">
@@ -59,7 +59,7 @@ const Post = (props) => {
 
       </form>
 
-    </div>
+    </div >
 
   );
   

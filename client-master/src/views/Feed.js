@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import "../CSS/HomePage.css";
@@ -19,8 +18,7 @@ const Feed = (props) => {
   const [error, setError] = useState("");
 
   const grabEveryPost = () => {
-    axios
-      .get("/following/posts")
+    axios.get("/following/posts")
       .then((res) => {
         pullPost(res.data);
         setError("")
@@ -28,17 +26,8 @@ const Feed = (props) => {
       .catch((err) => console.log("err from Feed.js axios call", err));
   };
 
-  
-  let pullPost = (dict) => {
-    console.log(dict);
-    let postKeys = Object.keys(dict)
-    let postArr = [];
-    for (let i = 0; i < postKeys.length; i++) {
-      postArr.push(dict[postKeys[i]])
-    }
-    setEveryPost(postArr)
-  };
 
+  //  ADD POINT TO POST 
   const addPoint = (id) => {
     axios.post("/add/point", {
       id
@@ -56,13 +45,26 @@ const Feed = (props) => {
       })
   }
 
+  //  Grab keys put into array and grab each post 
+  let pullPost = (dict) => {
+    console.log("****", dict);
+    let postKeys = Object.keys(dict)
+    let postArr = [];
+    for (let i = 0; i < postKeys.length; i++) {
+      postArr.push(dict[postKeys[i]])
+    }
+    setEveryPost(postArr)
+  };
+
+
   useEffect(() => {
     grabEveryPost();
   }, []);
 
   return (
     <div id="mainBodyHomePage" >
-      
+
+      {/* LEFT SIDE */}
       <IconNav
         setPostForm={props.setPostForm}
         postForm={props.PostForm}
@@ -130,6 +132,7 @@ const Feed = (props) => {
         {props.postForm ? <Post setPostForm={props.setPostForm} everyPost={everyPost} setEveryPost={setEveryPost} /> : null}
 
       </div>
+
 
       <NewsAPI />
 

@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 
 
 const IconNav = (props) => {
+  //  history.push("/") is used to navigate to other routes
   const history = useHistory();
   const handleHome = () => {
     history.push("/home/feed");

@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
@@ -45,7 +44,6 @@ const Reg = () => {
                         }
                         setEmailError(error)
                         return emailError
-                        
                     }
                     if(res.data['error']=== "That user name is already used!"){
                         let error = {
@@ -53,7 +51,6 @@ const Reg = () => {
                         }
                         setUserNameError(error)
                         return user_name_error
-                        
                     }
                     localStorage.setItem("logged_in", "yes");
                     history.push('/home/feed')
@@ -67,8 +64,6 @@ const Reg = () => {
             return confirm_password_error
         }
     }
-    //  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-
 
     return (
         <div className='bg-slate-100 ' style={{ height: "100vh" }}>
@@ -114,53 +109,6 @@ const Reg = () => {
             </form>
         </div>
     )
-    // return (
-    //     <div>
-    //         <h1 className="title">Register Now</h1>
-    //         <form onSubmit={createUser} method="POST" className="w-2/5 p-8 reg border-4 border-blue-900">
-    //             <div className="column spc_btwn ">
-    //                 <h3 className='font-bold bg-zink-800 '>User Name</h3>
-    //                 <input type="text" className='block text-lg text-slate-500 ' 
-    //                 value={user_name}
-    //                 onChange={ (e) => setUserName(e.target.value)}
-    //                 placeholder="User Name..."/>
-    //             </div>
-    //             <div className="column spc_btwn">
-    //                 <h3>First Name</h3>
-    //                 <input type="text" value={first_name}
-    //                 onChange={ (e) => setFirstName(e.target.value)}
-    //                 placeholder="Your first name..."/>
-    //             </div>
-    //             <div className="column spc_btwn">
-    //                 <h3 className="column">Last Name</h3>
-    //                 <input type="text" value={last_name}
-    //                 onChange={ (e) => setLastName(e.target.value)}
-    //                 placeholder="Your last name..."/>
-    //             </div>
-    //             <div className="column spc_btwn"> 
-    //                 <h3>Email</h3>
-    //                 <input type="email" value={email}
-    //                 onChange={ (e) => setEmail(e.target.value)}
-    //                 placeholder="Your email..."/> 
-    //         </div>
-    //             <div className="column spc_btwn"> 
-    //                 <h3>Password</h3>
-    //                 <input type="text" value={password}
-    //                 onChange={ (e) => setPassword(e.target.value)}
-    //                 placeholder="Create Password..."/> 
-    //             </div>
-    //             <div className="column spc_btwn "> 
-    //                 <h3>Confirm password</h3>
-    //                 <input type="text" value={confirm_password}
-    //                 onChange={ (e) => setConfirmPassword(e.target.value)}
-    //                 placeholder="Confirm Password..."/> 
-    //             </div>
-
-    //             <input type="submit" value='Submit' className="button-15"/>
-    //             <a href="/login" className="border-2">Already have an account!!</a>
-
-    //         </form>
-    //     </div>
-    // )
+    
 }
 export default Reg;
