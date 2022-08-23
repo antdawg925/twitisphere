@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
+
 const Following = () => {
 
     const [following, setFollowing] = useState([])
@@ -28,13 +30,15 @@ const Following = () => {
         console.log(following, "following state var!");
         return following
     };
+    const myRef = useRef(null);
+    const scroll = () => scrollToRef(myRef)
 
     useEffect(() => {
         getFollowing()
     }, [])
     return (
-        <div>
-            <h1 className="bg-blue-200 rounded-t-md h-10 mb-6 pt-2 shadow-xl shadow-blue-300 text-lg">Following</h1>
+        <div className="h-fit" onScroll={() => scroll()}>
+            <h1 className="bg-blue-200 rounded-t-md h-10 mb-6 pt-2 shadow-xl shadow-blue-300 text-lg " >Following</h1>
             {
                 following ? (
                     following.map((user, idx) => {

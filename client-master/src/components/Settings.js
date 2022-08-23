@@ -10,14 +10,15 @@ const Settings = (props) => {
 
   return (
     <div className="center">
-      <h1 className="title text-4xl">User Settings</h1>
+      <h1 className="shadow-xl shadow-blue-300 bg-blue-200 p-3 text-4xl">User Settings</h1>
       <div className=" flex justify-between p-5 ">
-        <button className="edit-btn   "
+        <button className="
+          edit-btn w-1/2 m-3"
           onClick={() => {
             setEditEmail(true)
             setEditPassword(false)
           }}>Edit Email</button>
-        <button className="edit-btn "
+        <button className="edit-btn w-1/2 m-3 "
           onClick={() => {
             setEditEmail(false)
             setEditPassword(true)
@@ -40,6 +41,7 @@ const Settings = (props) => {
           </div>
         ) : ''
       }
+      <h2 className="m-3"> This feature will be added in version 2! </h2>
       <button className="cancel"
         onClick={() => props.setSettings(false)}>Cancel</button>
     </div>

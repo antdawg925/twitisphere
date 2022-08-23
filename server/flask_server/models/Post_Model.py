@@ -1,6 +1,6 @@
 
 from flask_server.config.mysqlconnection import connectToMySQL
-from flask import flash, session
+from flask import session
 from flask_server.models import User_Model
 
 schema = "twitisphere_schema"

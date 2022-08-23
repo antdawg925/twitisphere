@@ -53,43 +53,13 @@ class Log_Reg:
         result = connectToMySQL(schema).query_db(query,data)
         return result
 
-
-# VALIDATE USER REG INFO
-    @staticmethod
-    def validate_info(user):
-        is_valid = True
-        if len(user['first_name']) < 3:
-            flash("First name must be at least 3 characters.")
-            is_valid = False
-        if len(user['last_name']) < 3:
-            flash("Last name must be at least 3 characters.")
-            is_valid = False
-        if not EMAIL_REGEX.match(user['email']): 
-            flash("Invalid email!")
-            is_valid = False
-        if len(user['password']) < 8:
-            flash("Password must be at least 8 characters.")
-            is_valid = False
-        if len(user['confirm']) < 3:
-            flash("Confirm password must be at least 3 characters.")
-            is_valid = False
-        if user['confirm'] != user['password']:
-            flash("Password and confirm password do not match.")
-            is_valid = False
-        print('valid entered info send to bcrypt')
-        return is_valid
-
-
 # VALIDATE LOGIN INFO
     @staticmethod
     def validate_login( user ):
         print('validating login info')
         is_valid = True
-
         if not EMAIL_REGEX.match(user['email']): 
-            flash("Invalid email/password!")
             is_valid = False
-            print('XXXXXXXXXXXX passes regex step XXXXXXXXXX')
         return is_valid
 
 

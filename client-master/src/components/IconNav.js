@@ -32,23 +32,24 @@ const IconNav = (props) => {
   return (
     <div id="icons" className="min-w-fit px-2">
       <HomeIcon sx={{ fontSize: 100 }} onClick={() => handleHome()} />
-      <NotificationsIcon sx={{ fontSize: 100 }} />
-      <ChatBubbleIcon sx={{ fontSize: 100 }} />
+      <NotificationsIcon sx={{ fontSize: 100 }} onClick={()=> history.push("/notifications")} />
+      <ChatBubbleIcon sx={{ fontSize: 100 }} onClick={()=> history.push("/chat")}/>
       <People sx={{ fontSize: 100 }} onClick={() => (history.push("/find/users"))} />
 
       <button className="
         button-10 rounded 
         font-bold text-base
-        p-2 w-2/3 min-w-fit 
-        absolute left-6 bottom-16"
+        p-2 w-3/4 min-w-fit 
+        absolute left-5 bottom-16"
         onClick={() => props.renderPost()}
       >
         Create Post
       </button>
-      <button className="button-10 rounded 
+      <button className="
+        button-10 rounded 
         font-bold text-base
-        p-2 w-2/3 
-        absolute left-6 bottom-5"
+        p-2 w-3/4 
+        absolute left-5 bottom-5"
         onClick={() => logOut()}>
         LOG OUT
       </button>

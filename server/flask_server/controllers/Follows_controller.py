@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import  Flask,request, session
 from flask_server import app
 from flask_server.models.Follows_model import Follow
-#                                        GET FOLLOWS
 @app.route("/follows")
 def get_followsC():
     all_following = Follow.get_following()

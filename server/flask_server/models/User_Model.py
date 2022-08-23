@@ -1,5 +1,5 @@
 from flask_server.config.mysqlconnection import connectToMySQL
-from flask import flash, session
+from flask import  session
 from flask_server import app
 from flask_bcrypt import Bcrypt
 import re

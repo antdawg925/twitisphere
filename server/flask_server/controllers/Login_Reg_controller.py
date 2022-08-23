@@ -1,5 +1,4 @@
-
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import request, session
 from flask_server import app
 from flask_server.models.Login_Reg_model import Log_Reg
 from flask_bcrypt import Bcrypt
@@ -19,15 +18,12 @@ def create_user():
     'password' : pw_hash,
     }
     user_name = Log_Reg.check_user_name(data)
-    # print("----- user_name['user_name'] --", user_name, "------- data['user_name'] ", data['user_name'])
-
     if(len(user_name) > 0 ):
         error = {
             'error':"That user name is already used!"
         }
         return error
     email = Log_Reg.check_email(data)
-    # print("----- email['email'] --", email, "------- data['email'] ", data)
     if(len(email) > 0 ):
         error = {
             'error':"That email is already used!"
@@ -41,11 +37,9 @@ def create_user():
 def login():
     data = request.get_json()
     user_id = Log_Reg.get_by_email(data)
-    # print(user_id,"____________________")
     if not bcrypt.check_password_hash( user_id[0]["password"], data["password"] ):
         return False
     if not Log_Reg.validate_login(data):
-        # print("INVALID EMAIL FROM USER CONTROLLER")
         return False
     catch={}
     for user in user_id:

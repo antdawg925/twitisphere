@@ -14,8 +14,8 @@ const Follows = (props) => {
             height: "40vh",
             width: "20vw",
             textAlign: "center",
-            borderRadius: "7px"
-        }} className="relative">
+            borderRadius: "7px",
+        }}>
 
             {
                 props.followingComp ? (

@@ -35,8 +35,6 @@ const Profile = (props) => {
       .catch(err => console.log(err, "**** AXIOS GET POSTS ERR ****"))
   }
 
-
-
   // GET ALL USERS POSTS AND USERS INFO
   const getUserInfo = () => {
     axios.get("/user/info")
@@ -100,13 +98,16 @@ const Profile = (props) => {
             <h2>{userInfo.first_name} {userInfo.last_name}</h2>
             <p>@{userInfo.user_name}</p>
             <div className="flex">
-              <p className="mr-2"
+              <p 
+                className="mr-2 underline"
                 onClick={() => {
                   setFollowsComp(true)
                   setFollowingComp(true)
                   setFollowersComp(false)
                 }}>{following.length} :Following </p>
-              <p onClick={() => {
+              <p 
+                className="underline"
+                onClick={() => {
                 setFollowsComp(true)
                 setFollowersComp(true)
                 setFollowingComp(false)

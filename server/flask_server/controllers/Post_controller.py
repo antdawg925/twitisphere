@@ -1,5 +1,4 @@
-from cmath import log
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import  request, session
 from flask_server import app
 from flask_server.models.Post_Model import Post
 from flask_server.models.Points_Model import Point

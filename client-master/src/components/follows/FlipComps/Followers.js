@@ -33,7 +33,7 @@ const Followers = () => {
         getFollower()
     }, [])
     return (
-        <div className="rounded">
+        <div className="rounded pb-4">
             <h1 className="bg-blue-200 rounded-t-md h-10 mb-6 pt-2 shadow-xl shadow-blue-300 text-xl">Follower </h1>
             {
                 follower ? (

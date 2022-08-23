@@ -2,15 +2,16 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "../CSS/Main.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Orbital } from "../components/Orbital";
 
 const Main = () => {
   //  history.push("/") is used to navigate to other routes
   const history = useHistory();
 
   const checkLoggedIn = () => {
-    if (localStorage.getItem("logged_in") == "yes") {
+    if (localStorage.getItem("logged_in") === "yes") {
       history.push('/profile')
     }
   }
@@ -22,23 +23,18 @@ const Main = () => {
 
   return (
     <div id="leftCol">
-      <img id="leftImg" src="https://abs.twimg.com/sticky/illustrations/lohp_en_1302x955.png" />
-      <div id="rightCol">
-        <h1>Happening now</h1>
+      <img src="https://cdn-icons-gif.flaticon.com/6172/6172532.gif" alt="roto" style={{marginLeft:"6%"}} />
 
-        <h2>Join "Twitter" today.</h2>
-        <Link to="/register">
-          <button className="bg-blue-500 border-solid border-4 rounded border-blue-800">Sign up with an email</button>
-        </Link>
-        <p>
-          By signing up, you agree to the Terms of Service and Privacy Policy,
-          including Cookie Use.
-        </p>
+      <div id="rightCol">
+
+        <h2>Join "Twitisphere" today.</h2>
+
+        <button className="bg-teal-300 border-solid border-4 p-1 rounded border-blue-800" onClick={() => history.push("/register")}>Sign up with an email</button>
 
         <h3>Already have an account?</h3>
-        <Link to="/login">
-          <button className="bg-blue-500 border-solid border-4 rounded border-blue-800">Sign in</button>
-        </Link>
+
+        <button className="bg-teal-300 border-solid border-4 p-1 rounded border-blue-800" onClick={() => history.push("/login")}>Sign in</button>
+
       </div>
     </div>
   );

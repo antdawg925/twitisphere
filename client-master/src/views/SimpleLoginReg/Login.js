@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
     //  history.push("/") is used to navigate to other routes
@@ -11,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const checkLoggedIn = () => {
-        if (localStorage.getItem("logged_in") == "yes") {
+        if (localStorage.getItem("logged_in") === "yes") {
             history.push('/profile')
         }
     }
