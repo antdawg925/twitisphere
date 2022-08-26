@@ -4,8 +4,9 @@
 }
 #tempImage {
   height: 250px;
-  background-color: #7bc2f8;
+  background-color: #a2cdfe;
   border: 4px solid grey;
+  border-radius: 4px;
 }
 #userPic {
   position: relative;

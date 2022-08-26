@@ -24,7 +24,7 @@ const Reg = () => {
     // useEffect
     useEffect(() => {
         checkLoggedIn();
-    }, [])
+    },[])
 
     const createUser = (e) => {
         e.preventDefault();

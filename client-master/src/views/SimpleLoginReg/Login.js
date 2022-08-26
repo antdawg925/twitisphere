@@ -18,7 +18,7 @@ const Login = () => {
     // useEffect
     useEffect(() => {
         checkLoggedIn();
-    }, [])
+    },[])
 
     
     let loginUser = (e) => {

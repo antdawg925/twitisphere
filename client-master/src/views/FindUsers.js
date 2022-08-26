@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useReducer } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios";
 import { useHistory } from "react-router-dom"
 import SettingsAccessibility from "@mui/icons-material/SettingsAccessibility";
@@ -13,10 +13,8 @@ const FindUsers = () =>
   const [everyUser, setEveryUser] = useState([]);
   const [error, setError] = useState("");
 
-
- 
   const checkLoggedIn = () => {
-    if (localStorage.getItem("logged_in") != "yes") {
+    if (localStorage.getItem("logged_in") !== "yes") {
       history.push('/')
     }
   }
@@ -70,6 +68,7 @@ const FindUsers = () =>
   return (
     <div className="">
       <h1 className="bg-blue-900 text-white text-center text-xl h-16 pt-4">Find other users!</h1>
+
       <p className="cursor-pointer bg-blue-900 
               w-20 p-1 m-2 text-center 
               text-white rounded  hover:bg-slate-500"
@@ -79,8 +78,10 @@ const FindUsers = () =>
             <h3 className="text-center font-bold  text-red-500 text-xl">{error}</h3>
           ):null
         }
+
       {
         everyUser.map((user, idx) => {
+
           return (
             <div key={idx} style={{ marginLeft: "25%" }}
               className="border-solid border-2
@@ -88,13 +89,17 @@ const FindUsers = () =>
                       h-10  m-2 mb-3 w-1/2 
                       rounded flex flex-row 
                       justify-between">
+
               <p className="ml-2" > @Name : {user.user_name}</p>
               <p className=""> Users Name : {user.first_name} {user.last_name} </p>
               <p className="mr-6 hover:cursor-cell" onClick={() => followUser(user.id)}> <SettingsAccessibility /> </p>
+              
             </div>
           )
+
         })
       }
+
     </div>
   )
 }

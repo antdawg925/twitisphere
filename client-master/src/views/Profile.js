@@ -83,7 +83,7 @@ const Profile = (props) => {
         {/* HEADER OF USER PROFILE */}
         {/* USERS BACKGROUND AND PROFILE PIC WILL BE DISPLAYED HERE */}
         <div>
-          <div id="tempImage"></div>
+          <div id="tempImage" ></div>
           <div id="bottomOfPicture">
             <PersonIcon sx={{ fontSize: 100 }} id="userPic" />
             <p
